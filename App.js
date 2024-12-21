@@ -4,6 +4,7 @@ import SplashScreen from './screens/SplashScreen';
 import LoginPage from './screens/LoginPage';
 import RegisterPage from './screens/RegisterPage';
 import OnboardingPage from './screens/OnboardingPage';
+import GamePlayScreen from './screens/GamePlayScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomePage from './screens/HomePage';

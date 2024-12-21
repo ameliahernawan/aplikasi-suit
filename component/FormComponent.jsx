@@ -6,24 +6,28 @@ export default function FormComponent({ state }) {
   const [username, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [balanceVisible, setBalanceVisible] = useState(true);
   const navigation = useNavigation();
+
+  const toggleBalanceVisibility = () => setBalanceVisible((prev) => !prev);
 
   return (
     <SafeAreaView>
       {state === 'register' && <TextInput style={styles.formComponent} placeholder="Username" value={username} onChangeText={setUserName} autoCorrect={false} />}
       <TextInput style={styles.formComponent} placeholder="Email" value={email} onChangeText={setEmail} autoCorrect={false} autoCapitalize="none" />
-      <TextInput style={styles.formComponent} placeholder="Password" value={password} onChangeText={setPassword} autoCorrect={false} autoCapitalize="none" secureTextEntry />
+      <TextInput style={[styles.formComponent, {marginBottom:'50'}]} placeholder="Password" value={password} onChangeText={setPassword} autoCorrect={false} autoCapitalize="none" secureTextEntry />
 
       {state === 'register' ? (
         <>
+          <View style={{paddingTop:275}}>
           <TouchableOpacity style={styles.button}>
             <Text style={styles.buttonText}>Register</Text>
           </TouchableOpacity>
-
+          </View>
           <View style={styles.groupText1}>
-            <Text style={styles.text}>Already have an account?</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('login')}>
-              <Text style={styles.text}>Login</Text>
+            <Text style={[styles.text, {color:"white"}]}>Already have an account?</Text>
+            <TouchableOpacity onPress={() => navigation.replace('login')}>
+              <Text style={[styles.text, {color:"gold", fontWeight: 'bold'}]}> Login</Text>
             </TouchableOpacity>
           </View>
         </>
@@ -34,9 +38,9 @@ export default function FormComponent({ state }) {
           </TouchableOpacity>
 
           <View style={styles.groupText1}>
-            <Text style={styles.text}>Don't have an account?</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('register')}>
-              <Text style={styles.text}>Register now</Text>
+            <Text style={[styles.text, {color:"white"}]}>Don't have an account?</Text>
+            <TouchableOpacity onPress={() => navigation.replace('register')}>
+              <Text style={[styles.text, {color:"gold", fontWeight: 'bold'}]}> Register now</Text>
             </TouchableOpacity>
           </View>
         </>
@@ -46,30 +50,56 @@ export default function FormComponent({ state }) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#00C4CC',
+    padding: 20,
+  },
   formComponent: {
-    backgroundColor: '#FAFBFD',
-    borderRadius: 5,
-    fontSize: 14,
-    paddingVertical: 22,
-    marginBottom: 12,
+    width: '100%',
+    backgroundColor: 'white',
+    borderRadius: 50,
+    fontSize: 16,
+    paddingVertical: 20,
+    paddingHorizontal: 20,
+    marginBottom: 20,
+    shadowColor: 'black',
+    shadowOffset: { width: 3, height: 3 },
+    shadowOpacity: 1,
+    elevation: 5,
   },
   button: {
-    backgroundColor: 'black',
-    padding: 12,
-    borderRadius: 5,
+    width: '100%',
+    backgroundColor: 'white',
+    paddingVertical: 10,
+    borderRadius: 25,
     alignItems: 'center',
+    marginTop: 10,
+    shadowColor: 'black',
+    shadowOffset: { width: 3, height: 3 },
+    shadowOpacity: 1,
+    elevation: 5,
   },
   buttonText: {
-    color: 'white',
-    fontWeight: 700,
-    margin: 12,
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 26,
   },
   groupText1: {
+    flexDirection: 'row',
     alignItems: 'center',
-    margin: 18,
-    gap: 5,
+    justifyContent: 'center',
+    marginTop: 20,
   },
   text: {
-    fontSize: 16,
+    fontSize: 14,
+    color: 'black',
+  },
+  linkText: {
+    color: '#FF5722', // Bright orange for links
+    fontWeight: 'bold',
+    marginLeft: 5,
   },
 });
