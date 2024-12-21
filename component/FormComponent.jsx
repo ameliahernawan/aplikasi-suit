@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { StyleSheet, SafeAreaView, TextInput, View, Text, KeyboardAvoidingView, Button, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 export default function FormComponent({ state }) {
   const [username, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
 
   return (
     <SafeAreaView>
@@ -21,7 +22,7 @@ export default function FormComponent({ state }) {
 
           <View style={styles.groupText1}>
             <Text style={styles.text}>Already have an account?</Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={navigation.navigate('login')}>
               <Text style={styles.text}>Login</Text>
             </TouchableOpacity>
           </View>
@@ -34,7 +35,7 @@ export default function FormComponent({ state }) {
 
           <View style={styles.groupText1}>
             <Text style={styles.text}>Don't have an account?</Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={navigation.navigate('register')}>
               <Text style={styles.text}>Register now</Text>
             </TouchableOpacity>
           </View>
