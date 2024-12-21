@@ -24,7 +24,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="splash">
         {isLoading ? (
           <Stack.Screen name="splash" component={SplashScreen} options={{ headerShown: false }} />
         ) : (
