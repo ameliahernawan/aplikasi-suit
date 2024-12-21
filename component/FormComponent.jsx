@@ -10,17 +10,17 @@ export default function FormComponent({ state }) {
 
   return (
     <SafeAreaView>
-      {state === 'register' && <TextInput style={styles.formComponent} placeholder="Username" value={username} onChangeText={setUserName} autoCorrect={false} />}
-      <TextInput style={styles.formComponent} placeholder="Email" value={email} onChangeText={setEmail} autoCorrect={false} autoCapitalize="none" />
-      <TextInput style={styles.formComponent} placeholder="Password" value={password} onChangeText={setPassword} autoCorrect={false} autoCapitalize="none" secureTextEntry />
+      {state === 'register' && <TextInput style={styles.formContainer} placeholder="Username" value={username} onChangeText={setUserName} autoCorrect={false} />}
+      <TextInput style={styles.formContainer} placeholder="Email" value={email} onChangeText={setEmail} autoCorrect={false} autoCapitalize="none" />
+      <TextInput style={styles.formContainer} placeholder="Password" value={password} onChangeText={setPassword} autoCorrect={false} autoCapitalize="none" secureTextEntry />
 
       {state === 'register' ? (
         <>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={() => navigation.replace('home')}>
             <Text style={styles.buttonText}>Register</Text>
           </TouchableOpacity>
 
-          <View style={styles.groupText1}>
+          <View style={styles.container}>
             <Text style={styles.text}>Already have an account?</Text>
             <TouchableOpacity onPress={() => navigation.replace('login')}>
               <Text style={styles.text}>Login</Text>
@@ -33,7 +33,7 @@ export default function FormComponent({ state }) {
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
 
-          <View style={styles.groupText1}>
+          <View style={styles.container}>
             <Text style={styles.text}>Don't have an account?</Text>
             <TouchableOpacity onPress={() => navigation.replace('register')}>
               <Text style={styles.text}>Register now</Text>
@@ -46,7 +46,7 @@ export default function FormComponent({ state }) {
 }
 
 const styles = StyleSheet.create({
-  formComponent: {
+  formContainer: {
     backgroundColor: '#FAFBFD',
     borderRadius: 5,
     fontSize: 14,
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     fontWeight: 700,
     margin: 12,
   },
-  groupText1: {
+  container: {
     alignItems: 'center',
     margin: 18,
     gap: 5,
