@@ -22,7 +22,7 @@ export default function FormComponent({ state }) {
 
           <View style={styles.groupText1}>
             <Text style={styles.text}>Already have an account?</Text>
-            <TouchableOpacity onPress={navigation.navigate('login')}>
+            <TouchableOpacity onPress={() => navigation.navigate('login')}>
               <Text style={styles.text}>Login</Text>
             </TouchableOpacity>
           </View>
@@ -35,7 +35,7 @@ export default function FormComponent({ state }) {
 
           <View style={styles.groupText1}>
             <Text style={styles.text}>Don't have an account?</Text>
-            <TouchableOpacity onPress={navigation.navigate('register')}>
+            <TouchableOpacity onPress={() => navigation.navigate('register')}>
               <Text style={styles.text}>Register now</Text>
             </TouchableOpacity>
           </View>
