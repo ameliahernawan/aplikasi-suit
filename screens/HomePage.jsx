@@ -10,6 +10,7 @@ export default function HomePage() {
   const [settingModalVisible, setSettingModalVisible] = useState(false);
 
   return (
+
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={() => setSettingModalVisible(true)}>
@@ -47,6 +48,7 @@ export default function HomePage() {
           <RoomModal visible={roomModalVisible} onClose={() => setRoomModalVisible(false)} />
         </View>
       </View>
+
     </View>
   );
 }
