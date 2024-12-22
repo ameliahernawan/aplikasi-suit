@@ -1,13 +1,29 @@
 import { TouchableOpacity, View, Text, Image, StyleSheet } from 'react-native';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import RoomModal from '../component/RoomModal';
 import SettingModal from '../component/SettingModal';
-// import Ionicons from '@expo/vector-icons/Ionicons';
-// import { Container } from 'lucide-react';
+import GamePlay from './GamePlay';
 
 export default function HomePage() {
+  const [gameMode, setGameMode] = useState(null);
   const [roomModalVisible, setRoomModalVisible] = useState(false);
   const [settingModalVisible, setSettingModalVisible] = useState(false);
+  const [showGame, setShowGame] = useState(false);
+
+  const handlePlayNow = () => {
+    setShowGame(mode);
+    setRoomModalVisible(true);
+  };
+
+  const handleQuitGame = () => {
+    setShowGame(false);
+    setPlayer2('');
+    setSelectedAvatar(null);
+  };
+
+  if (showGame) {
+    return <GamePlay onQuit={handleQuitGame} />;
+  }
 
   return (
     <View style={styles.container}>
@@ -36,7 +52,7 @@ export default function HomePage() {
         <Text style={{ fontSize: 20, textAlign: 'center' }}>Choose Mode</Text>
 
         <View style={{ flexDirection: 'row', gap: 12 }}>
-          <TouchableOpacity style={styles.typeContainer} onPress={() => setRoomModalVisible(true)}>
+          <TouchableOpacity>
             <Image source={require('../assets/sun.png')} style={styles.gameType} />
           </TouchableOpacity>
 
