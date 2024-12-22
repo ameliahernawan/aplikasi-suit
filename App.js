@@ -4,6 +4,7 @@ import SplashScreen from './screens/SplashScreen';
 import LoginPage from './screens/LoginPage';
 import RegisterPage from './screens/RegisterPage';
 import OnboardingPage from './screens/OnboardingPage';
+import GamePlayScreen from './screens/GamePlayScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomePage from './screens/HomePage';
@@ -24,7 +25,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="splash">
         {isLoading ? (
           <Stack.Screen name="splash" component={SplashScreen} options={{ headerShown: false }} />
         ) : (
@@ -32,6 +33,7 @@ export default function App() {
             <Stack.Screen name="login" component={LoginPage} options={{ headerShown: false }} />
             <Stack.Screen name="register" component={RegisterPage} options={{ headerShown: false }} />
             <Stack.Screen name="onboarding" component={OnboardingPage} options={{ headerShown: false }} />
+            <Stack.Screen name="home" component={HomePage} options={{ headerShown: false }} />
           </>
         )}
       </Stack.Navigator>

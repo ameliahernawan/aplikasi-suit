@@ -3,6 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
+  TextInput,
   TouchableOpacity,
   Image,
   SafeAreaView,
@@ -47,6 +48,7 @@ export default function LoginPage({ }) {
       valid = false;
     } 
 
+    // For the Log in
     console.log("sign in")
     try {
       const result = await login(
@@ -94,6 +96,24 @@ export default function LoginPage({ }) {
     </TouchableWithoutFeedback>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    width: "100%",
+    flexDirection:'column'
+  },
+  loginimage: {
+     alignItems:'center'
+  },
+  imageBackground: {
+    flex: 1,
+    width: '100%', // Ensures the ImageBackground stretches to the full screen width
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 
 const styles = StyleSheet.create({
   container: {
