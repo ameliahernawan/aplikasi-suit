@@ -108,24 +108,6 @@ const styles = StyleSheet.create({
   },
   imageBackground: {
     flex: 1,
-    width: '100%', // Ensures the ImageBackground stretches to the full screen width
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    width: "100%",
-    flexDirection:'column'
-  },
-  loginimage: {
-     alignItems:'center'
-  },
-  imageBackground: {
-    flex: 1,
     width: '100%',
     height: '100%',
     justifyContent: 'center',
