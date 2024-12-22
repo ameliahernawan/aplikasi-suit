@@ -13,6 +13,7 @@ export default function FormComponent({ state }) {
 
   return (
     <SafeAreaView>
+
       {state === 'register' && <TextInput style={styles.formComponent} placeholder="Username" value={username} onChangeText={setUserName} autoCorrect={false} />}
       <TextInput style={styles.formComponent} placeholder="Email" value={email} onChangeText={setEmail} autoCorrect={false} autoCapitalize="none" />
       <TextInput style={[styles.formComponent, {marginBottom:'50'}]} placeholder="Password" value={password} onChangeText={setPassword} autoCorrect={false} autoCapitalize="none" secureTextEntry />
@@ -28,6 +29,7 @@ export default function FormComponent({ state }) {
             <Text style={[styles.text, {color:"white"}]}>Already have an account?</Text>
             <TouchableOpacity onPress={() => navigation.replace('login')}>
               <Text style={[styles.text, {color:"gold", fontWeight: 'bold'}]}> Login</Text>
+
             </TouchableOpacity>
           </View>
         </>
@@ -36,6 +38,7 @@ export default function FormComponent({ state }) {
           <TouchableOpacity style={styles.button}>
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
+
 
           <View style={styles.groupText1}>
             <Text style={[styles.text, {color:"white"}]}>Don't have an account?</Text>
@@ -87,6 +90,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 26,
   },
+
   groupText1: {
     flexDirection: 'row',
     alignItems: 'center',
