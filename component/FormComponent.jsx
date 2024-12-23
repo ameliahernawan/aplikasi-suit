@@ -14,43 +14,43 @@ export default function FormComponent({ state }) {
 
   const navigation = useNavigation();
 
-  const handleSubmitLogin = () => {
-    if (!email || !password) {
-      alert('validation error', 'email and password are required');
-      return;
-    }
-    handleLogin(email, password);
-  };
+  // const handleSubmitLogin = () => {
+  //   if (!email || !password) {
+  //     alert('validation error', 'email and password are required');
+  //     return;
+  //   }
+  //   handleLogin(email, password);
+  // };
 
-  const handleSubmitRegister = () => {
-    if (!username || !email || !password) {
-      alert('Validation Error', 'Usarname, Email, and Password are required');
-      return;
-    }
-    handleRegister(username, email, password);
-  };
+  // const handleSubmitRegister = () => {
+  //   if (!username || !email || !password) {
+  //     alert('Validation Error', 'Usarname, Email, and Password are required');
+  //     return;
+  //   }
+  //   handleRegister(username, email, password);
+  // };
 
-  const handleLogin = async (email, password) => {
-    try {
-      const response = await login(email, password);
-      await auth.login(response.data.token);
-      console.log(response.token);
-      navigation.navigate('home');
-    } catch (error) {
-      alert('Error: ', error.message);
-    }
-  };
+  // const handleLogin = async (email, password) => {
+  //   try {
+  //     const response = await login(email, password);
+  //     await auth.login(response.data.token);
+  //     console.log(response.token);
+  //     navigation.navigate('home');
+  //   } catch (error) {
+  //     alert('Error: ', error.message);
+  //   }
+  // };
 
-  const handleRegister = async (username, email, password) => {
-    try {
-      const response = await register(username, email, password);
-      await auth.register(response.data.token);
-      console.log(response.token);
-      navigation.navigate('login');
-    } catch (error) {
-      alert('Error: ', error.message);
-    }
-  };
+  // const handleRegister = async (username, email, password) => {
+  //   try {
+  //     const response = await register(username, email, password);
+  //     await auth.register(response.data.token);
+  //     console.log(response.token);
+  //     navigation.navigate('login');
+  //   } catch (error) {
+  //     alert('Error: ', error.message);
+  //   }
+  // };
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
@@ -80,7 +80,7 @@ export default function FormComponent({ state }) {
           {/* Button */}
           {state === 'register' ? (
             <>
-              <TouchableOpacity style={styles.button} onPress={handleSubmitRegister}>
+              <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('home')}>
                 <Text style={styles.buttonText}>Register</Text>
               </TouchableOpacity>
 

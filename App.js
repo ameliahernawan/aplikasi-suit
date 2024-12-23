@@ -33,7 +33,6 @@ export default function App() {
             <Stack.Screen name="onboarding" component={OnboardingPage} options={{ headerShown: false }} />
             <Stack.Screen name="home" component={HomePage} options={{ headerShown: false }} />
             <Stack.Screen name="gameplay" component={GamePlay} options={{ headerShown: false }} />
-            <Stack.Screen name="gameplay" component={GamePlay} options={{ headerShown: false }} />
           </>
         )}
       </Stack.Navigator>
