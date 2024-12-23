@@ -4,7 +4,7 @@ import SelectedChoice from '../component/SelectedChoice';
 import ResultModal from '../component/ResultModal';
 import { View, Text, StyleSheet } from 'react-native';
 
-const GamePlay = () => {
+const GamePlayPVC = () => {
   const [player1Choice, setPlayer1Choice] = useState(null);
   const [player2Choice, setPlayer2Choice] = useState(null);
   const [winner, setWinner] = useState(null);
@@ -86,4 +86,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default GamePlay;
+export default GamePlayPVC;

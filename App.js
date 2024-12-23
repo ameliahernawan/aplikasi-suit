@@ -8,7 +8,8 @@ import GamePlayScreen from './pages/GamePlayScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomePage from './pages/HomePage';
-// import GamePlay from './pages/GamePlay';
+// import GamePlayPVP from './pages/PVP';
+// import GamePlayPVC from './pages/PVC';
 import { useEffect, useState } from 'react';
 
 const Stack = createStackNavigator();
@@ -35,7 +36,7 @@ export default function App() {
             <Stack.Screen name="register" component={RegisterPage} options={{ headerShown: false }} />
             <Stack.Screen name="onboarding" component={OnboardingPage} options={{ headerShown: false }} />
             <Stack.Screen name="home" component={HomePage} options={{ headerShown: false }} />
-            {/* <Stack.Screen name="gameplay" component={GamePlay} options={{ headerShown: false }} /> */}
+            <Stack.Screen name="gameplay" component={GamePlay} options={{ headerShown: false }} />
           </>
         )}
       </Stack.Navigator>
