@@ -1,35 +1,31 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, SafeAreaView, ImageBackground, Dimensions, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import FormComponent from '../component/FormComponent';
-import { useNavigation } from '@react-navigation/native';
-//import { login } from "../API/restApi";
-//import { useAuth } from "../context/AuthContext";
+import React, { useState, useEffect } from "react";
+import {
+  StyleSheet,
+  View,
+  Image,
+  ImageBackground,
+  Dimensions,
+  TouchableWithoutFeedback,
+  Keyboard} from "react-native";
+import * as Font from 'expo-font';
+import FormComponent from "../component/FormComponent";
+import { useNavigation } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get('window');
 
-export default function LoginPage({}) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
+export default function LoginPage() {
+  const [fontLoaded, setFontLoaded] = useState(false);
   const navigation = useNavigation();
 
-  //const {saveToken} = useAuth();
-
-  async function handleLogin() {
-    let valid = true;
-    console.log('login');
-
-    setEmailError('');
-    setPasswordError('');
-
-    if (!email) {
-      setEmailError('Email is required.');
-      valid = false;
-    } else if (!email.includes('@')) {
-      setEmailError('Please enter a valid email address.');
-      valid = false;
+  useEffect(() => {
+    async function loadFont() {
+      await Font.loadAsync({
+        Handy: require('../assets/HandyCasual.ttf'),
+      });
+      setFontLoaded(true);
     }
+    loadFont();
+  }, []);
 
     if (!password) {
       setPasswordError('Password is required.');
@@ -48,7 +44,10 @@ export default function LoginPage({}) {
     } finally {
       return null;
     }
+  if (!fontLoaded) {
+    return null;
   }
+}
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -72,7 +71,7 @@ const styles = StyleSheet.create({
   },
   imageBackground: {
     flex: 1,
-    width: '100%', // Ensures the ImageBackground stretches to the full screen width
+    width: '100%',
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',

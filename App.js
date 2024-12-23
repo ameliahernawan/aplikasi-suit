@@ -1,13 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import SplashScreen from './pages/SplashScreen';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-import OnboardingPage from './pages/OnboardingPage';
-// import GamePlayScreen from './pages/GamePlayScreen';
+import SplashScreen from './screens/SplashScreen';
+import LoginPage from './screens/LoginPage';
+import RegisterPage from './screens/RegisterPage';
+import OnboardingPage from './screens/OnboardingPage';
+import GamePlayScreen from './screens/GamePlayScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import HomePage from './pages/HomePage';
+import HomePage from './screens/HomePage';
 import GamePlay from './pages/GamePlay';
 import { useEffect, useState } from 'react';
 
@@ -35,7 +35,7 @@ export default function App() {
             <Stack.Screen name="register" component={RegisterPage} options={{ headerShown: false }} />
             <Stack.Screen name="onboarding" component={OnboardingPage} options={{ headerShown: false }} />
             <Stack.Screen name="home" component={HomePage} options={{ headerShown: false }} />
-            <Stack.Screen name="gameplay" component={GamePlay} options={{ headerShown: false }} />
+            {/* <Stack.Screen name="gameplay" component={GamePlay} options={{ headerShown: false }} /> */}
           </>
         )}
       </Stack.Navigator>

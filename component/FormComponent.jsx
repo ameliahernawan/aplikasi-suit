@@ -1,50 +1,48 @@
 import { useState } from 'react';
-import { StyleSheet, SafeAreaView, TextInput, View, Text, Image, Dimensions, TouchableOpacity } from 'react-native';
+import { StyleSheet, SafeAreaView, TextInput, View, Text, KeyboardAvoidingView, Button, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
-const { width, height } = Dimensions.get('window');
 
 export default function FormComponent({ state }) {
   const [username, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [balanceVisible, setBalanceVisible] = useState(true);
+  const [secureTextEntry, setSecureTextEntry] = useState(true);
+  const [fontLoaded, setFontLoaded] = useState(false);
   const navigation = useNavigation();
 
-  const toggleBalanceVisibility = () => setBalanceVisible((prev) => !prev);
+  const togglePasswordVisibility = () => setSecureTextEntry((prev) => !prev);
+
+  useEffect(() => {
+    async function loadFont() {
+      try {
+        await Font.loadAsync({
+          Handy: require('../assets/HandyCasual.ttf'),
+        });
+        setFontLoaded(true);
+      } catch (error) {
+        console.error('Error loading font:', error);
+      }
+    }
+    loadFont();
+  }, []);
+
+  if (!fontLoaded) {
+    return null;
+  }
 
   return (
-    <SafeAreaView style={{}}>
-      {/* Judul Page */}
-      <View style={{ flexDirection: 'column-reverse' }}>
-        {state === 'register' ? (
-          <View style={[styles.loginimage]}>
-            <Image style={{ width: width * 0.7, height: height * 0.1 }} source={require('../assets/CREATE ACCOUNT.png')} resizeMode="contain" />
-          </View>
-        ) : (
-          <View style={[styles.loginimage]}>
-            <Image style={{ width: width * 0.3, height: height * 0.1 }} source={require('../assets/LOGIN.png')} resizeMode="contain" />
-          </View>
-        )}
-
-        {/* Logo Fist */}
-        <View style={[styles.loginimage]}>
-          <Image style={{ width: width * 0.65, height: height * 0.4 }} source={require('../assets/Logo.png')} resizeMode="contain" />
-        </View>
-      </View>
-
-      {/* Formulir */}
+    <SafeAreaView>
       {state === 'register' && <TextInput style={styles.formComponent} placeholder="Username" value={username} onChangeText={setUserName} autoCorrect={false} />}
-      <TextInput style={styles.formComponent} placeholder="Enter your email" value={email} onChangeText={setEmail} autoCorrect={false} autoCapitalize="none" />
-      <TextInput style={[styles.formComponent, { marginBottom: '10' }]} placeholder="Enter your password" value={password} onChangeText={setPassword} autoCorrect={false} autoCapitalize="none" secureTextEntry />
+      <TextInput style={styles.formComponent} placeholder="Email" value={email} onChangeText={setEmail} autoCorrect={false} autoCapitalize="none" />
+      <TextInput style={[styles.formComponent, { marginBottom: '50' }]} placeholder="Password" value={password} onChangeText={setPassword} autoCorrect={false} autoCapitalize="none" secureTextEntry />
 
-      {/* Button */}
       {state === 'register' ? (
         <>
-          <TouchableOpacity style={styles.button} onPress={() => navigation.replace('home')}>
-            <Text style={styles.buttonText}>Register</Text>
-          </TouchableOpacity>
-
+          <View style={{ paddingTop: 275 }}>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>Register</Text>
+            </TouchableOpacity>
+          </View>
           <View style={styles.groupText1}>
             <Text style={[styles.text, { color: 'white' }]}>Already have an account?</Text>
             <TouchableOpacity onPress={() => navigation.replace('login')}>
@@ -55,7 +53,7 @@ export default function FormComponent({ state }) {
       ) : (
         <>
           <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Login</Text>
+            <Text style={styles.buttonText}>LOGIN</Text>
           </TouchableOpacity>
 
           <View style={styles.groupText1}>
@@ -71,9 +69,12 @@ export default function FormComponent({ state }) {
 }
 
 const styles = StyleSheet.create({
-  loginimage: {
+  container: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
-    paddingBottom: 10,
+    backgroundColor: '#00C4CC',
+    padding: 20,
   },
   formComponent: {
     backgroundColor: 'white',
@@ -81,43 +82,43 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingVertical: 20,
     paddingHorizontal: 20,
-
-    marginHorizontal: 10,
-    marginVertical: 5,
-    borderColor: 'black',
-    borderWidth: 2,
-    borderBottomWidth: 10,
+    marginBottom: 20,
+    shadowColor: 'black',
+    shadowOffset: { width: 3, height: 3 },
+    shadowOpacity: 1,
+    elevation: 5,
   },
   button: {
-    backgroundColor: '#FABB55',
+    width: '100%',
+    backgroundColor: 'white',
     paddingVertical: 10,
     borderRadius: 50,
     alignItems: 'center',
-    margin: 15,
-    borderColor: 'black',
-    borderWidth: 2,
-    borderBottomWidth: 7,
+    marginTop: 10,
+    shadowColor: 'black',
+    shadowOffset: { width: 3, height: 3 },
+    shadowOpacity: 1,
+    elevation: 5,
   },
   buttonText: {
     color: 'black',
     fontWeight: 'bold',
     fontSize: 26,
   },
-
   groupText1: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 5,
+    marginTop: 20,
   },
   text: {
-    fontSize: 16,
-    fontWeight: 500,
+    fontSize: 14,
     color: 'black',
   },
-  linkText: {
-    color: '#FF5722', // Bright orange for links
+  textHighlight: {
+    color: 'gold',
     fontWeight: 'bold',
     marginLeft: 5,
+    fontFamily: 'Handy',
   },
 });

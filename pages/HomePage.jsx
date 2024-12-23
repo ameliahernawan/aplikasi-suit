@@ -2,7 +2,7 @@ import { TouchableOpacity, View, Text, Image, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
 import RoomModal from '../component/RoomModal';
 import SettingModal from '../component/SettingModal';
-import GamePlay from './GamePlay';
+import GamePlay from './PVP';
 
 export default function HomePage() {
   const [gameMode, setGameMode] = useState(null);

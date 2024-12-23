@@ -30,6 +30,7 @@ export default function RegisterPage() {
     setPasswordError('');
     setIsCheckedError('');
 
+    // Validation checks
     if (fullname.length <= 3) {
       setFullnameError('Fullname must be more than 3 characters.');
       valid = false;
@@ -52,6 +53,7 @@ export default function RegisterPage() {
 
     if (valid) {
       try {
+        // Simulate API call
         const response = await register(fullname, email, password, avatarUrl);
 
         Alert.alert('Success', 'Registration successful!', [{ text: 'OK', onPress: () => navigation.navigate('Login') }]);
@@ -65,7 +67,12 @@ export default function RegisterPage() {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ImageBackground source={require('../assets/background_image.png')} resizeMode="cover" style={styles.imageBackground}>
         <View style={{ flex: 1, width: '100%' }}>
-          <FormComponent state="register"></FormComponent>
+          <View style={[styles.loginimage, { flex: 1, backgroundColor: '', paddingTop: '80', alignItems: 'center' }]}>
+            <Image style={{ width: width * 0.6, height: height * 0.1 }} source={require('../assets/CREATE ACCOUNT.png')} resizeMode="contain" />
+          </View>
+          <View style={{ backgroundColor: '', flex: 7, paddingHorizontal: 30 }}>
+            <FormComponent state="register"></FormComponent>
+          </View>
         </View>
       </ImageBackground>
     </TouchableWithoutFeedback>
@@ -73,6 +80,14 @@ export default function RegisterPage() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    width: '100%',
+    flexDirection: 'column',
+  },
+  image: {
+    alignItems: 'center',
+  },
   imageBackground: {
     flex: 1,
     width: '100%',
