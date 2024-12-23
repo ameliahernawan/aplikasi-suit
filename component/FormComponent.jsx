@@ -55,6 +55,7 @@ export default function FormComponent({ state }) {
       {/* Input email */}
       <TextInput
         style={styles.formComponent}
+        text="Email"
         placeholder="Enter your email"
         value={email}
         onChangeText={setEmail}
@@ -66,6 +67,7 @@ export default function FormComponent({ state }) {
       <View style={styles.passwordContainer}>
         <TextInput
           style={[styles.formComponent, styles.passwordInput]}
+          text="Password"
           placeholder="Enter your password"
           value={password}
           onChangeText={setPassword}
