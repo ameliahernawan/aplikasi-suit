@@ -26,9 +26,9 @@ const GamePlay = () => {
   const determineWinner = (choice1, choice2) => {
     if (choice1 === choice2) return 'tie';
     if ((choice1 === 'rock' && choice2 === 'scissors') || (choice1 === 'paper' && choice2 === 'rock') || (choice1 === 'scissors' && choice2 === 'paper')) {
-      return 'player1';
+      return 'Player 1';
     }
-    return 'player2';
+    return 'Player 2';
   };
 
   const handlePlayer1Choice = (choice) => {
