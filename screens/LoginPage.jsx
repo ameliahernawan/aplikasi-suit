@@ -12,6 +12,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard
 } from "react-native";
+import * as Font from 'expo-font';
 import FormComponent from "../component/FormComponent";
 import { useNavigation } from "@react-navigation/native";
 //import { login } from "../API/restApi";
@@ -23,10 +24,26 @@ export default function LoginPage({ }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
+  const [fontLoaded, setFontLoaded] = useState(false);
   const [passwordError, setPasswordError] = useState("");
   const navigation = useNavigation();
 
   //const {saveToken} = useAuth();
+
+
+  useEffect(() => {
+    async function loadFont() {
+      await Font.loadAsync({
+        Bangers: require('./assets/fonts/Bangers-Regular.ttf'),
+      });
+      setFontLoaded(true);
+    }
+    loadFont();
+  }, []);
+
+  if (!fontLoaded) {
+    return null;
+  }
 
   async function handleLogin() {
     let valid = true;
