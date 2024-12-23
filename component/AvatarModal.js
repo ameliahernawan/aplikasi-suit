@@ -1,26 +1,19 @@
-import { Modal, SafeAreaView, StyleSheet, Text, View, Image, ImageBackground, TouchableOpacity, Box, ScrollView, TextInput } from 'react-native';
+import { Modal, SafeAreaView, StyleSheet, Text, View, Image, ImageBackground, TouchableOpacity, Box, ScrollView } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { useNavigation } from '@react-navigation/native';
 
-const RoomModal = ({ visible, onClose }) => {
-  const navigation = useNavigation();
-
-  const startGame = () => {
-    onClose(); // Tutup modal
-    navigation.navigate('gameplay', { mode: 'PVP' }); // Kirim parameter mode PVP
-  };
-
+const AvatarModal = ({ visible, onClose }) => {
   return (
     <Modal visible={visible} onRequestClose={onClose} transparent={true} animationType="none">
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <TouchableOpacity style={styles.closeX} onPress={onClose}>
-            <Ionicons name="close-circle" size={30} color="brown" />
-          </TouchableOpacity>
-
-          <Text style={styles.modalTitle}>Choose your room</Text>
-
-          <View>
+          <Text style={styles.modalTitle}>Choose your avatar</Text>
+          <View style={styles.gridContainer}>
+            <TouchableOpacity>
+              <Image source={require('../assets/sun.png')} style={styles.gameType} />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Image source={require('../assets/sun.png')} style={styles.gameType} />
+            </TouchableOpacity>
             <TouchableOpacity>
               <Image source={require('../assets/sun.png')} style={styles.gameType} />
             </TouchableOpacity>
@@ -28,9 +21,8 @@ const RoomModal = ({ visible, onClose }) => {
               <Image source={require('../assets/sun.png')} style={styles.gameType} />
             </TouchableOpacity>
           </View>
-
-          <TouchableOpacity style={styles.modalButton} onPress={startGame}>
-            <Text>Play now</Text>
+          <TouchableOpacity style={styles.modalButton} onPress={onClose}>
+            <Text>Pick</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -39,13 +31,6 @@ const RoomModal = ({ visible, onClose }) => {
 };
 
 const styles = StyleSheet.create({
-  formContainer: {
-    backgroundColor: '#FAFBFD',
-    borderRadius: 5,
-    fontSize: 14,
-    paddingVertical: 22,
-    marginBottom: 12,
-  },
   closeX: {
     position: 'absolute',
     left: 10,
@@ -78,6 +63,13 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
+  gridContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: 10,
+    width: 200, // Adjust this based on your needs
+  },
   modalTitle: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -91,4 +83,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RoomModal;
+export default AvatarModal;

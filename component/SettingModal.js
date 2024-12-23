@@ -1,16 +1,20 @@
 import { Modal, SafeAreaView, StyleSheet, Text, View, Image, ImageBackground, TouchableOpacity, Box, ScrollView } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import AvatarModal from './AvatarModal';
+import { useState } from 'react';
 
 const SettingModal = ({ visible, onClose }) => {
+  const [avatarModalVisible, setAvatarModalVisible] = useState(false);
   return (
     <Modal visible={visible} onRequestClose={onClose} transparent={true} animationType="none">
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <Text style={styles.modalTitle}>Settings</Text>
           <View style={{ gap: 20 }}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={() => setAvatarModalVisible(true)}>
               <Text>Change Avatar</Text>
             </TouchableOpacity>
+            <AvatarModal visible={avatarModalVisible} onClose={() => setAvatarModalVisible(false)} />
             <TouchableOpacity style={styles.button}>
               <Text>Tutorial</Text>
             </TouchableOpacity>
