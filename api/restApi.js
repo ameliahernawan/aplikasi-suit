@@ -1,14 +1,14 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const token = AsyncStorage.getAccount('userToken');
+const token = AsyncStorage.getItem('userToken');
 
 const api = axios.create({
   baseUrl: 'http://13.55.211.40:3000',
 });
 
 export const fetchUser = async () => {
-  const token = await AsyncStorage.getAccount('userToken');
+  const token = await AsyncStorage.getItem('userToken');
   try {
     const response = await api.get('/auth/current-user', {
       headers: {

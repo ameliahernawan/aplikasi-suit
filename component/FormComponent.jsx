@@ -93,7 +93,7 @@ export default function FormComponent({ state }) {
             </>
           ) : (
             <>
-              <TouchableOpacity style={styles.button} onPress={handleSubmitLogin}>
+              <TouchableOpacity style={styles.button}>
                 <Text style={styles.buttonText}>Login</Text>
               </TouchableOpacity>
 
