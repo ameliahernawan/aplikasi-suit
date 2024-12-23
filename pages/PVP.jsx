@@ -5,7 +5,7 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { useState } from 'react';
 
-const GamePlay = ({ onQuit }) => {
+const PVPgamePlay = ({ onQuit }) => {
   const [player1Choice, setPlayer1Choice] = useState(null);
   const [player2Choice, setPlayer2Choice] = useState(null);
   const [winner, setWinner] = useState(null);
@@ -116,4 +116,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default GamePlay;
+export default PVPgamePlay;

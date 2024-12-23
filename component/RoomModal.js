@@ -7,10 +7,7 @@ const RoomModal = ({ visible, onClose }) => {
 
   const startGame = () => {
     onClose(); // Tutup modal
-    navigation.
-    
-    
-    navigate('gameplay', { mode: 'PVP' }); // Kirim parameter mode PVP
+    navigation.navigate('gameplay', { mode: 'PVP' }); // Kirim parameter mode PVP
   };
 
   return (

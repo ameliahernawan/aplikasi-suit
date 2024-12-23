@@ -1,15 +1,8 @@
-import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  View,
-  Image,
-  ImageBackground,
-  Dimensions,
-  TouchableWithoutFeedback,
-  Keyboard} from "react-native";
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, Image, ImageBackground, Dimensions, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import * as Font from 'expo-font';
-import FormComponent from "../component/FormComponent";
-import { useNavigation } from "@react-navigation/native";
+import FormComponent from '../component/FormComponent';
+import { useNavigation } from '@react-navigation/native';
 
 const { width, height } = Dimensions.get('window');
 
@@ -26,28 +19,6 @@ export default function LoginPage() {
     }
     loadFont();
   }, []);
-
-    if (!password) {
-      setPasswordError('Password is required.');
-      valid = false;
-    }
-
-    // For the Log in
-    console.log('sign in');
-    try {
-      const result = await login(email, password);
-      const token = result.data.token;
-      saveToken(token);
-      navigation.navigate('MainTabs', { screen: 'Home' });
-    } catch (e) {
-      console.log(e);
-    } finally {
-      return null;
-    }
-  if (!fontLoaded) {
-    return null;
-  }
-}
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
