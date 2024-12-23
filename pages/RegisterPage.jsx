@@ -1,26 +1,18 @@
 import React, { useState } from "react";
 import {
   StyleSheet,
-  Text,
   View,
-  TextInput,
-  TouchableOpacity,
-  SafeAreaView,
   Image,
-  Modal,
-  ScrollView,
+  ImageBackground,
   Dimensions,
   TouchableWithoutFeedback,
   Keyboard,
   Alert,
-  ImageBackground,
-
 } from "react-native";
-//import { Checkbox } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import FormComponent from "../component/FormComponent";
+
 const { width, height } = Dimensions.get('window');
-//import { register } from "../API/restApi"; 
 
 export default function RegisterPage() {
   const [fullname, setFullname] = useState("");
@@ -34,18 +26,18 @@ export default function RegisterPage() {
   const [passwordError, setPasswordError] = useState("");
   const [isCheckedError, setIsCheckedError] = useState("");
 
-  const [modalVisible, setModalVisible] = useState(false);
-
   const navigation = useNavigation();
 
   const handleRegister = async () => {
     let valid = true;
 
+    // Reset errors
     setFullnameError("");
     setEmailError("");
     setPasswordError("");
     setIsCheckedError("");
 
+    // Validation checks
     if (fullname.length <= 3) {
       setFullnameError("Fullname must be more than 3 characters.");
       valid = false;
@@ -68,43 +60,58 @@ export default function RegisterPage() {
 
     if (valid) {
       try {
+        // Simulate API call
         const response = await register(fullname, email, password, avatarUrl);
-
         Alert.alert("Success", "Registration successful!", [
           { text: "OK", onPress: () => navigation.navigate("Login") },
         ]);
       } catch (error) {
-        
-        Alert.alert("Error", error.response.data.message);
+        Alert.alert("Error", error.response?.data?.message || "Something went wrong.");
       }
     }
   };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-    <ImageBackground
-              source={require('../assets/background_image.png')}
-              resizeMode="cover"
-              style={styles.imageBackground}
-            >
-    <View style={{ flex: 1, width: "100%" }}>
-      <View style={[styles.loginimage, {flex:1, backgroundColor:'', paddingTop:'80', alignItems: 'center'}]}>
-              <Image
-                style={{ width: width * 0.6, height: height * 0.1 }}
-                source={require('../assets/CREATE ACCOUNT.png')}
-                resizeMode="contain"
-              />
+      <ImageBackground
+        source={require('../assets/background_image.png')}
+        resizeMode="cover"
+        style={styles.imageBackground}
+      >
+        <View style={styles.container}>
+          <View style={[styles.image, { flex: 1, paddingTop: 80 }]}>
+            <Image
+              style={{ width: width * 0.65, height: height * 0.4 }}
+              source={require('../assets/Fist Logo.png')}
+              resizeMode="contain"
+            />
+          </View>
+          <View style={[styles.image, { flex: 2 }]}>
+            <Image
+              style={{ width: width * 0.6, height: height * 0.5 }}
+              source={require('../assets/CREATE ACCOUNT.png')}
+              resizeMode="contain"
+            />
+          </View>
+          <View style={{ justifyContent: 'center', flex: 2, paddingHorizontal: 30 }}>
+            {/* Pass state prop to FormComponent */}
+            <FormComponent state="register" onSubmit={handleRegister} />
+          </View>
         </View>
-      <View style= {{backgroundColor:'', flex:7,  paddingHorizontal:30}}>
-        <FormComponent state="register"></FormComponent>
-      </View>
-    </View>
-    </ImageBackground>
+      </ImageBackground>
     </TouchableWithoutFeedback>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    width: "100%",
+    flexDirection: 'column',
+  },
+  image: {
+    alignItems: 'center',
+  },
   imageBackground: {
     flex: 1,
     width: '100%',
@@ -112,4 +119,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-})
+});
