@@ -1,13 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import SplashScreen from './screens/SplashScreen';
-import LoginPage from './screens/LoginPage';
-import RegisterPage from './screens/RegisterPage';
-import OnboardingPage from './screens/OnboardingPage';
-import GamePlayScreen from './screens/GamePlayScreen';
+import SplashScreen from './pages/SplashScreen';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import OnboardingPage from './pages/OnboardingPage';
+// import GamePlayScreen from './pages/GamePlayScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import HomePage from './screens/HomePage';
+import HomePage from './pages/HomePage';
 import GamePlay from './pages/GamePlay';
 import { useEffect, useState } from 'react';
 

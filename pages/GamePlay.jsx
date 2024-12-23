@@ -3,8 +3,9 @@ import SelectedChoice from '../component/SelectedChoice';
 import ResultModal from '../component/ResultModal';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { useRoute } from '@react-navigation/native';
+import { useState } from 'react';
 
-const GamePlay = ({ mode, onQuit }) => {
+const GamePlay = ({ onQuit }) => {
   const [player1Choice, setPlayer1Choice] = useState(null);
   const [player2Choice, setPlayer2Choice] = useState(null);
   const [winner, setWinner] = useState(null);
@@ -20,6 +21,12 @@ const GamePlay = ({ mode, onQuit }) => {
       return 'player1';
     }
     return 'player2';
+  };
+
+  const choiceImages = {
+    rock: require('../assets/Comp_Batu.png'),
+    paper: require('../assets/Comp_Kertas.png'),
+    scissors: require('../assets/Comp_Gunting.png'),
   };
 
   const handlePlayer1Choice = (choice) => {
@@ -50,16 +57,22 @@ const GamePlay = ({ mode, onQuit }) => {
 
   return (
     <View style={styles.container}>
-      Mode: {mode === 'PVP' ? 'Player vs Player' : 'Player vs Computer'}
+      <Text style={styles.modeText}>Mode: {mode === 'PVP' ? 'Player vs Player' : 'Player vs Computer'}</Text>
       {!roundComplete && (
         <>
-          <HandChoices onSelect={handlePlayer1Choice} disabled={player1Choice} />
+          <HandChoices onSelect={handlePlayer1Choice} disabled={!!player1Choice} />
 
           {player1Choice && <HandChoices onSelect={handlePlayer2Choice} disabled={false} />}
         </>
       )}
-      {player1Choice && <SelectedChoice player={1} choice={player1Choice} />}
-      {player2Choice && <SelectedChoice player={2} choice={player2Choice} />}
+
+      {player1Choice && player2Choice && (
+        <>
+          <SelectedChoice player={1} choice={player1Choice} image={choiceImages[player1Choice]} />
+          <SelectedChoice player={2} choice={player2Choice} image={choiceImages[player2Choice]} />
+        </>
+      )}
+
       {showResult && <ResultModal winner={winner} player1Choice={player1Choice} player2Choice={player2Choice} onPlayAgain={handlePlayAgain} />}
     </View>
   );

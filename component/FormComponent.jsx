@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import { StyleSheet, SafeAreaView, TextInput, View, Text, KeyboardAvoidingView, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, SafeAreaView, TextInput, View, Text, Image, Dimensions, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+
+const { width, height } = Dimensions.get('window');
 
 export default function FormComponent({ state }) {
   const [username, setUserName] = useState('');
@@ -12,24 +14,41 @@ export default function FormComponent({ state }) {
   const toggleBalanceVisibility = () => setBalanceVisible((prev) => !prev);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{}}>
+      {/* Judul Page */}
+      <View style={{ flexDirection: 'column-reverse' }}>
+        {state === 'register' ? (
+          <View style={[styles.loginimage]}>
+            <Image style={{ width: width * 0.7, height: height * 0.1 }} source={require('../assets/CREATE ACCOUNT.png')} resizeMode="contain" />
+          </View>
+        ) : (
+          <View style={[styles.loginimage]}>
+            <Image style={{ width: width * 0.3, height: height * 0.1 }} source={require('../assets/LOGIN.png')} resizeMode="contain" />
+          </View>
+        )}
 
+        {/* Logo Fist */}
+        <View style={[styles.loginimage]}>
+          <Image style={{ width: width * 0.65, height: height * 0.4 }} source={require('../assets/Logo.png')} resizeMode="contain" />
+        </View>
+      </View>
+
+      {/* Formulir */}
       {state === 'register' && <TextInput style={styles.formComponent} placeholder="Username" value={username} onChangeText={setUserName} autoCorrect={false} />}
-      <TextInput style={styles.formComponent} placeholder="Email" value={email} onChangeText={setEmail} autoCorrect={false} autoCapitalize="none" />
-      <TextInput style={[styles.formComponent, {marginBottom:'50'}]} placeholder="Password" value={password} onChangeText={setPassword} autoCorrect={false} autoCapitalize="none" secureTextEntry />
+      <TextInput style={styles.formComponent} placeholder="Enter your email" value={email} onChangeText={setEmail} autoCorrect={false} autoCapitalize="none" />
+      <TextInput style={[styles.formComponent, { marginBottom: '10' }]} placeholder="Enter your password" value={password} onChangeText={setPassword} autoCorrect={false} autoCapitalize="none" secureTextEntry />
 
+      {/* Button */}
       {state === 'register' ? (
         <>
-          <View style={{paddingTop:275}}>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={() => navigation.replace('home')}>
             <Text style={styles.buttonText}>Register</Text>
           </TouchableOpacity>
-          </View>
-          <View style={styles.groupText1}>
-            <Text style={[styles.text, {color:"white"}]}>Already have an account?</Text>
-            <TouchableOpacity onPress={() => navigation.replace('login')}>
-              <Text style={[styles.text, {color:"gold", fontWeight: 'bold'}]}> Login</Text>
 
+          <View style={styles.groupText1}>
+            <Text style={[styles.text, { color: 'white' }]}>Already have an account?</Text>
+            <TouchableOpacity onPress={() => navigation.replace('login')}>
+              <Text style={[styles.text, { color: 'gold', fontWeight: 'bold' }]}> Login</Text>
             </TouchableOpacity>
           </View>
         </>
@@ -39,11 +58,10 @@ export default function FormComponent({ state }) {
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
 
-
           <View style={styles.groupText1}>
-            <Text style={[styles.text, {color:"white"}]}>Don't have an account?</Text>
+            <Text style={[styles.text, { color: 'white' }]}>Don't have an account?</Text>
             <TouchableOpacity onPress={() => navigation.replace('register')}>
-              <Text style={[styles.text, {color:"gold", fontWeight: 'bold'}]}> Register now</Text>
+              <Text style={[styles.text, { color: 'gold', fontWeight: 'bold' }]}> Register now</Text>
             </TouchableOpacity>
           </View>
         </>
@@ -53,37 +71,32 @@ export default function FormComponent({ state }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
+  loginimage: {
     alignItems: 'center',
-    backgroundColor: '#00C4CC',
-    padding: 20,
+    paddingBottom: 10,
   },
   formComponent: {
-    width: '100%',
     backgroundColor: 'white',
     borderRadius: 50,
     fontSize: 16,
     paddingVertical: 20,
     paddingHorizontal: 20,
-    marginBottom: 20,
-    shadowColor: 'black',
-    shadowOffset: { width: 3, height: 3 },
-    shadowOpacity: 1,
-    elevation: 5,
+
+    marginHorizontal: 10,
+    marginVertical: 5,
+    borderColor: 'black',
+    borderWidth: 2,
+    borderBottomWidth: 10,
   },
   button: {
-    width: '100%',
-    backgroundColor: 'white',
+    backgroundColor: '#FABB55',
     paddingVertical: 10,
-    borderRadius: 25,
+    borderRadius: 50,
     alignItems: 'center',
-    marginTop: 10,
-    shadowColor: 'black',
-    shadowOffset: { width: 3, height: 3 },
-    shadowOpacity: 1,
-    elevation: 5,
+    margin: 15,
+    borderColor: 'black',
+    borderWidth: 2,
+    borderBottomWidth: 7,
   },
   buttonText: {
     color: 'black',
@@ -95,10 +108,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 20,
+    marginTop: 5,
   },
   text: {
-    fontSize: 14,
+    fontSize: 16,
+    fontWeight: 500,
     color: 'black',
   },
   linkText: {
