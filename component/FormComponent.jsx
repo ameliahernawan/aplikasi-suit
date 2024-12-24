@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { KeyboardAvoidingView, StyleSheet, SafeAreaView, TextInput, View, Text, Image, Dimensions, TouchableOpacity, ScrollView, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../context/AuthContext';
-import { register } from '../api/restApi';
+import { login, register } from '../api/restApi';
 
 const { width, height } = Dimensions.get('window');
 
@@ -14,43 +14,43 @@ export default function FormComponent({ state }) {
 
   const navigation = useNavigation();
 
-  // const handleSubmitLogin = () => {
-  //   if (!email || !password) {
-  //     alert('validation error', 'email and password are required');
-  //     return;
-  //   }
-  //   handleLogin(email, password);
-  // };
+  const handleSubmitLogin = () => {
+    if (!email || !password) {
+      alert('Email and password are required');
+      return;
+    }
+    handleLogin(email, password);
+  };
 
-  // const handleSubmitRegister = () => {
-  //   if (!username || !email || !password) {
-  //     alert('Validation Error', 'Usarname, Email, and Password are required');
-  //     return;
-  //   }
-  //   handleRegister(username, email, password);
-  // };
+  const handleSubmitRegister = () => {
+    if (!username || !email || !password) {
+      alert('Validation Error', 'Usarname, Email, and Password are required');
+      return;
+    }
+    handleRegister(username, email, password);
+  };
 
-  // const handleLogin = async (email, password) => {
-  //   try {
-  //     const response = await login(email, password);
-  //     await auth.login(response.data.token);
-  //     console.log(response.token);
-  //     navigation.navigate('home');
-  //   } catch (error) {
-  //     alert('Error: ', error.message);
-  //   }
-  // };
+  const handleLogin = async (email, password) => {
+    try {
+      const response = await login(email, password);
+      await auth.login(response.token);
+      console.log(response.token);
+      navigation.navigate('home');
+    } catch (error) {
+      alert('Error: ', error.message);
+      console.log(error);
+    }
+  };
 
-  // const handleRegister = async (username, email, password) => {
-  //   try {
-  //     const response = await register(username, email, password);
-  //     await auth.register(response.data.token);
-  //     console.log(response.token);
-  //     navigation.navigate('login');
-  //   } catch (error) {
-  //     alert('Error: ', error.message);
-  //   }
-  // };
+  const handleRegister = async (username, email, password) => {
+    try {
+      const response = await register(username, email, password, '1');
+      navigation.navigate('login');
+    } catch (error) {
+      alert('Error: ', error);
+      console.log(error);
+    }
+  };
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
@@ -80,7 +80,7 @@ export default function FormComponent({ state }) {
           {/* Button */}
           {state === 'register' ? (
             <>
-              <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('home')}>
+              <TouchableOpacity style={styles.button} onPress={handleSubmitRegister}>
                 <Text style={styles.buttonText}>Register</Text>
               </TouchableOpacity>
 
@@ -93,7 +93,7 @@ export default function FormComponent({ state }) {
             </>
           ) : (
             <>
-              <TouchableOpacity style={styles.button}>
+              <TouchableOpacity style={styles.button} onPress={handleSubmitLogin}>
                 <Text style={styles.buttonText}>Login</Text>
               </TouchableOpacity>
 

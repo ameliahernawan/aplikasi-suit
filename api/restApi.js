@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const token = AsyncStorage.getItem('userToken');
 
 const api = axios.create({
-  baseUrl: 'http://13.55.211.40:3000',
+  baseURL: 'http://13.55.211.40:3000',
 });
 
 export const fetchUser = async () => {
@@ -30,13 +30,14 @@ export const login = async (email, password) => {
     };
 
     const response = await api.post('/auth/login', body);
-    return response.data.data;
+    console.log(response);
+    return response.data;
   } catch (error) {
     throw new Error(error.response?.data?.error || 'Login failed');
   }
 };
 
-export const register = async (userName, email, password, avatarID) => {
+export const register = async (userName, email, password, avatarID = '1') => {
   try {
     const body = {
       username: userName,
@@ -45,6 +46,7 @@ export const register = async (userName, email, password, avatarID) => {
       avatar_id: avatarID,
     };
     const response = await api.post('/auth/register', body);
+    console.log(response);
     return response.data;
   } catch (error) {
     throw new Error(error.response?.data?.error || 'Registration failed');
