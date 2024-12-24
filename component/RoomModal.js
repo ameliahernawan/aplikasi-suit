@@ -5,20 +5,10 @@
 // const RoomModal = ({ visible, onClose }) => {
 //   const navigation = useNavigation();
 
-<<<<<<< HEAD
-  const startGame = () => {
-    onClose(); // Tutup modal
-    navigation.
-    
-    
-    navigate('pvp', { mode: 'pvp' }); // Kirim parameter mode PVP
-  };
-=======
 //   const startGame = () => {
 //     onClose(); // Tutup modal
 //     navigation.navigate('gameplay', { mode: 'PVP' }); // Kirim parameter mode PVP
 //   };
->>>>>>> 5fa6b5f16f3dde25314e83ffbf96f5bd8653601f
 
 //   return (
 //     <Modal visible={visible} onRequestClose={onClose} transparent={true} animationType="none">

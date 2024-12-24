@@ -42,8 +42,4 @@ const styles = StyleSheet.create({
   },
 });
 
-<<<<<<< HEAD
 export default ResultModal;
-=======
-export default ResultModal;
->>>>>>> 5fa6b5f16f3dde25314e83ffbf96f5bd8653601f
