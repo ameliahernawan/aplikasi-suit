@@ -6,11 +6,13 @@ const SelectedChoice = ({ player, choice, image }) => {
 
 const styles = StyleSheet.create({
   choiceDisplay: {
-    width: '100%',
+    width: '%',
     padding: 1,
-    flexDirection: 'row',
-    marginBottom: 1, // Menyusun teks ke tengah
-    justifyContent: 'center', // Menjaga teks tetap terpusat
+    flexDirection: '',
+
+    marginBottom: 1, 
+    // justifyContent: 'center', 
+    
   },
   choiceImage: {
     height: 100,

@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { KeyboardAvoidingView, StyleSheet, SafeAreaView, TextInput, View, Text, Image, Dimensions, TouchableOpacity, ScrollView, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../context/AuthContext';
 import { login, register } from '../api/restApi';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import * as Font from 'expo-font';
 
 const { width, height } = Dimensions.get('window');
 
 export default function FormComponent({ state }) {
+  const [fontLoaded, setFontLoaded] = useState(false);
   const [username, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -58,6 +60,25 @@ export default function FormComponent({ state }) {
     setSecureTextEntry(!secureTextEntry);
   };
 
+  useEffect(() => {
+    async function loadFont() {
+      try {
+        await Font.loadAsync({
+          Handy: require('../assets/HandyCasual.ttf'),
+          Bangers: require('../assets/Bangers-Regular.ttf'),
+        });
+        setFontLoaded(true);
+      } catch (error) {
+        console.error('Error loading font:', error);
+      }
+    }
+    loadFont();
+  }, []);
+
+  if (!fontLoaded) {
+    return null;
+  }
+
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled">
@@ -82,15 +103,33 @@ export default function FormComponent({ state }) {
           {state === 'register' && <TextInput style={styles.formComponent} placeholder="Username" value={username} onChangeText={setUserName} autoCorrect={false} />}
 
           {/* Input email */}
-          <TextInput style={styles.formComponent} text="Email" placeholder="Enter your email" value={email} onChangeText={setEmail} autoCorrect={false} autoCapitalize="none" />
+          <TextInput
+            style={styles.formComponent}
+            text="Email"
+            placeholder="Enter your email"
+            value={email}
+            onChangeText={setEmail}
+            autoCorrect={false}
+            autoCapitalize="none"
+          />
 
           {/* Input password */}
           <View style={styles.passwordContainer}>
-            <TextInput style={[styles.formComponent]} text="Password" placeholder="Enter your password" value={password} onChangeText={setPassword} autoCorrect={false} autoCapitalize="none" secureTextEntry={secureTextEntry} />
-            <TouchableOpacity onPress={togglePasswordVisibility}>
+            <TextInput
+              style={[styles.passwordInput]}
+              text="Password"
+              placeholder="Enter your password"
+              value={password}
+              onChangeText={setPassword}
+              autoCorrect={false}
+              autoCapitalize="none"
+              secureTextEntry={secureTextEntry}
+            />
+            <TouchableOpacity onPress={togglePasswordVisibility} style={styles.iconContainer}>
               <Icon name={secureTextEntry ? 'visibility-off' : 'visibility'} size={24} color="black" />
             </TouchableOpacity>
           </View>
+
 
           {/* Tombol dan navigasi */}
           {state === 'register' ? (
@@ -134,15 +173,47 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 50,
     fontSize: 16,
-    paddingVertical: 20,
+    paddingVertical: 25,
     paddingHorizontal: 20,
-
     marginHorizontal: 10,
     marginVertical: 5,
     borderColor: 'black',
     borderWidth: 2,
     borderBottomWidth: 10,
+    fontFamily: 'Handy',
   },
+  
+  passwordContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderRadius: 50,
+    fontSize: 16,
+    paddingVertical: 20,
+    paddingHorizontal: 20,
+    marginHorizontal: 10,
+    marginVertical: 5,
+    borderColor: 'black',
+    borderWidth: 2,
+    borderBottomWidth: 10,
+    
+  },
+  
+  passwordInput: {
+    flex: 1,
+    //paddingVertical: 10,
+    //paddingHorizontal: 15,
+    borderRadius: 50,
+    fontFamily: 'Handy',
+    fontSize: 16,
+  },
+  
+  iconContainer: {
+    paddingHorizontal: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  
   button: {
     backgroundColor: '#FABB55',
     paddingVertical: 10,
@@ -151,7 +222,7 @@ const styles = StyleSheet.create({
     margin: 15,
     borderColor: 'black',
     borderWidth: 2,
-    borderBottomWidth: 10,
+    borderBottomWidth: 7,
   },
   buttonText: {
     color: 'black',
@@ -171,7 +242,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   linkText: {
-    color: '#FF5722', // Bright orange for links
+    color: '#FF5722', 
     fontWeight: 'bold',
     marginLeft: 5,
   },
