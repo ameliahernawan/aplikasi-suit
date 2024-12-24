@@ -2,12 +2,22 @@ import { View, StyleSheet, Text } from 'react-native';
 
 const Scoreboard = ({ stats }) => {
   return (
-    <View style={styles.scoreContainer}>
-      <Text style={styles.scoreText}>Wins:{stats.wins}</Text>
-      <Text style={styles.scoreText}>Losses:{stats.losses}</Text>
-      <Text style={styles.scoreText}>Ties:{stats.ties}</Text>
-      <Text style={styles.streakText}>Best Streak:{stats.bestStreak}</Text>
-    </View>
+    <>
+      <View style={styles.scoreContainer}>
+        <Text>Player 1</Text>
+        <Text>Wins: {stats.player1.wins}</Text>
+        <Text>Losses: {stats.player1.losses}</Text>
+        <Text>Ties: {stats.player1.ties}</Text>
+        <Text>Best Streak: {stats.player1.bestStreak}</Text>
+      </View>
+      <View style={styles.scoreContainer}>
+        <Text>Player 2</Text>
+        <Text>Wins: {stats.player2.wins}</Text>
+        <Text>Losses: {stats.player2.losses}</Text>
+        <Text>Ties: {stats.player2.ties}</Text>
+        <Text>Best Streak: {stats.player2.bestStreak}</Text>
+      </View>
+    </>
   );
 };
 

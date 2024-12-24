@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     margin: 15,
     borderColor: 'black',
     borderWidth: 2,
-    borderBottomWidth: 7,
+    borderBottomWidth: 10,
   },
   buttonText: {
     color: 'black',

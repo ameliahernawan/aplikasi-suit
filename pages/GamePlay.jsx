@@ -4,6 +4,7 @@ import SelectedChoice from '../component/SelectedChoice';
 import ResultModal from '../component/ResultModal';
 import { View, Text, StyleSheet } from 'react-native';
 import { useRoute } from '@react-navigation/native';
+import Scoreboard from '../component/Scoreboard';
 
 const GamePlay = () => {
   const [gameState, setGameState] = useState({
@@ -12,6 +13,22 @@ const GamePlay = () => {
     winner: null,
     roundComplete: false,
     showResult: false,
+  });
+  const [stats, setStats] = useState({
+    player1: {
+      wins: 0,
+      losses: 0,
+      ties: 0,
+      bestStreak: 0,
+      currentStreak: 0,
+    },
+    player2: {
+      wins: 0,
+      losses: 0,
+      ties: 0,
+      bestStreak: 0,
+      currentStreak: 0,
+    },
   });
 
   const route = useRoute();
@@ -56,6 +73,41 @@ const GamePlay = () => {
       roundComplete: true,
       showResult: true,
     });
+
+    setStats((prevStat) => {
+      let updatedStats = { ...prevStat };
+
+      if (roundWinner === 'Player 1') {
+        updatedStats.player1.wins += 1;
+        updatedStats.player2.losses += 1;
+
+        updatedStats.player1.currentStreak += 1;
+        updatedStats.player2.currentStreak = 0;
+
+        if (updatedStats.player1.currentStreak > updatedStats.player1.bestStreak) {
+          updatedStats.player1.bestStreak = updatedStats.player1.currentStreak;
+        }
+      } else if (roundWinner === 'Player 2') {
+        updatedStats.player2.wins += 1;
+        updatedStats.player1.losses += 1;
+
+        updatedStats.player2.currentStreak += 1;
+        updatedStats.player1.currentStreak = 0; // Reset streak on loss
+
+        if (updatedStats.player2.currentStreak > updatedStats.player2.bestStreak) {
+          updatedStats.player2.bestStreak = updatedStats.player2.currentStreak;
+        }
+      } else if (roundWinner === 'tie') {
+        updatedStats.player1.ties += 1;
+        updatedStats.player2.ties += 1;
+      }
+
+      // if (updatedStats.currentStreak > updatedStats.bestStreak) {
+      //   updatedStats.bestStreak = updatedStats.currentStreak;
+      // }
+
+      return updatedStats;
+    });
   };
 
   const handlePlayAgain = () => {
@@ -70,6 +122,7 @@ const GamePlay = () => {
 
   return (
     <View style={styles.container}>
+      <Scoreboard stats={stats} />
       {/* Judul mode game */}
       <Text style={styles.modeText}>Mode: {mode === 'PVP' ? 'Player vs Player' : 'Player vs Computer'}</Text>
 
