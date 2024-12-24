@@ -9,16 +9,16 @@ const AvatarModal = ({ visible, onClose }) => {
           <Text style={styles.modalTitle}>Choose your avatar</Text>
           <View style={styles.gridContainer}>
             <TouchableOpacity>
-              <Image source={require('../assets/sun.png')} style={styles.gameType} />
+              <Image source={require('../assets/Avatar F1.png')} style={styles.gameType} />
             </TouchableOpacity>
             <TouchableOpacity>
-              <Image source={require('../assets/sun.png')} style={styles.gameType} />
+              <Image source={require('../assets/Avatar F2.png')} style={styles.gameType} />
             </TouchableOpacity>
             <TouchableOpacity>
-              <Image source={require('../assets/sun.png')} style={styles.gameType} />
+              <Image source={require('../assets/Avatar M1.png')} style={styles.gameType} />
             </TouchableOpacity>
             <TouchableOpacity>
-              <Image source={require('../assets/sun.png')} style={styles.gameType} />
+              <Image source={require('../assets/Avatar M2.png')} style={styles.gameType} />
             </TouchableOpacity>
           </View>
           <TouchableOpacity style={styles.modalButton} onPress={onClose}>
@@ -38,9 +38,9 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   gameType: {
-    height: 48,
-    width: 48,
-    margin: 12,
+    height: 100,
+    width: 100,
+    margin: 6,
   },
   centeredView: {
     flex: 1,
@@ -67,8 +67,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    gap: 10,
-    width: 200, // Adjust this based on your needs
+    gap: 10, // Adjust this based on your needs
   },
   modalTitle: {
     fontSize: 20,
