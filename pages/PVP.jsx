@@ -1,3 +1,18 @@
+<<<<<<< HEAD
+import HandChoices from '../component/HandChoice';
+import SelectedChoice from '../component/SelectedChoice';
+import ResultModal from '../component/ResultModal';
+import { View, Text, Image, StyleSheet } from 'react-native';
+import { useRoute } from '@react-navigation/native';
+import { useState } from 'react';
+
+const GamePlayPVP = ({ onQuit }) => {
+  const [player1Choice, setPlayer1Choice] = useState(null);
+  const [player2Choice, setPlayer2Choice] = useState(null);
+  const [winner, setWinner] = useState(null);
+  const [roundComplete, setRoundComplete] = useState(false);
+  const [showResult, setShowResult] = useState(false);
+=======
 // import HandChoices from '../component/HandChoice';
 // import SelectedChoice from '../component/SelectedChoice';
 // import ResultModal from '../component/ResultModal';
@@ -11,6 +26,7 @@
 //   const [winner, setWinner] = useState(null);
 //   const [roundComplete, setRoundComplete] = useState(false);
 //   const [showResult, setShowResult] = useState(false);
+>>>>>>> 5fa6b5f16f3dde25314e83ffbf96f5bd8653601f
 
 //   const route = useRoute();
 //   const { mode } = route.params;
@@ -47,6 +63,14 @@
 //     setShowResult(true);
 //   };
 
+<<<<<<< HEAD
+  return (
+    <View style={styles.container}>
+      Mode: {mode === 'PVP' ? 'Player vs Player' : 'Player vs Computer'}
+      {!roundComplete && (
+        <>
+          <HandChoices onSelect={handlePlayer1Choice} disabled={!!player1Choice} />
+=======
 //   const handlePlayAgain = () => {
 //     setPlayer1Choice(null);
 //     setPlayer2Choice(null);
@@ -54,6 +78,7 @@
 //     setRoundComplete(false);
 //     setShowResult(false);
 //   };
+>>>>>>> 5fa6b5f16f3dde25314e83ffbf96f5bd8653601f
 
 //   return (
 //     <View style={styles.container}>

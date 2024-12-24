@@ -53,12 +53,70 @@ export default function FormComponent({ state }) {
   };
 
   return (
+<<<<<<< HEAD
+    <SafeAreaView style={styles.container}>
+      {/* Render input username jika state adalah register */}
+      {state === 'register' && (
+        <TextInput
+          style={styles.formComponent}
+          placeholder="Username"
+          value={username}
+          onChangeText={setUserName}
+          autoCorrect={false}
+        />
+      )}
+
+      {/* Input email */}
+      <TextInput
+        style={styles.formComponent}
+        text="Email"
+        placeholder="Enter your email"
+        value={email}
+        onChangeText={setEmail}
+        autoCorrect={false}
+        autoCapitalize="none"
+      />
+
+      {/* Input password */}
+      <View style={styles.passwordContainer}>
+        <TextInput
+          style={[styles.formComponent, styles.passwordInput]}
+          text="Password"
+          placeholder="Enter your password"
+          value={password}
+          onChangeText={setPassword}
+          autoCorrect={false}
+          autoCapitalize="none"
+          secureTextEntry={secureTextEntry}
+        />
+        <TouchableOpacity onPress={togglePasswordVisibility} style={styles.eyeIcon}>
+          <Icon 
+            name={secureTextEntry ? 'visibility-off' : 'visibility'} 
+            size={24} 
+            color="black" 
+          />
+        </TouchableOpacity>
+      </View>
+
+      {/* Tombol dan navigasi */}
+      {state === 'register' ? (
+        <>
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('home')}>
+            <Text style={styles.buttonText}>REGISTER</Text>
+          </TouchableOpacity>
+          <View style={styles.groupText1}>
+            <Text style={styles.text}>Already have an account?</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('login')}>
+              <Text style={styles.textHighlight}> Login</Text>
+            </TouchableOpacity>
+=======
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled">
         <SafeAreaView style={{ flex: 1 }}>
           {/* Logo Fist */}
           <View style={[styles.loginimage]}>
             <Image style={{ width: width * 0.65, height: height * 0.4 }} source={require('../assets/Logo.png')} resizeMode="contain" />
+>>>>>>> 5fa6b5f16f3dde25314e83ffbf96f5bd8653601f
           </View>
 
           {/* Judul Page */}
