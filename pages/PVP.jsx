@@ -3,8 +3,9 @@ import SelectedChoice from '../component/SelectedChoice';
 import ResultModal from '../component/ResultModal';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { useRoute } from '@react-navigation/native';
+import { useState } from 'react';
 
-const GamePlayPVP = ({ mode, onQuit }) => {
+const GamePlayPVP = ({ onQuit }) => {
   const [player1Choice, setPlayer1Choice] = useState(null);
   const [player2Choice, setPlayer2Choice] = useState(null);
   const [winner, setWinner] = useState(null);
@@ -53,7 +54,7 @@ const GamePlayPVP = ({ mode, onQuit }) => {
       Mode: {mode === 'PVP' ? 'Player vs Player' : 'Player vs Computer'}
       {!roundComplete && (
         <>
-          <HandChoices onSelect={handlePlayer1Choice} disabled={player1Choice} />
+          <HandChoices onSelect={handlePlayer1Choice} disabled={!!player1Choice} />
 
           {player1Choice && <HandChoices onSelect={handlePlayer2Choice} disabled={false} />}
         </>

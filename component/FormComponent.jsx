@@ -87,7 +87,7 @@ export default function FormComponent({ state }) {
       {/* Tombol dan navigasi */}
       {state === 'register' ? (
         <>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('home')}>
             <Text style={styles.buttonText}>REGISTER</Text>
           </TouchableOpacity>
           <View style={styles.groupText1}>

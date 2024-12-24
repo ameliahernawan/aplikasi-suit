@@ -10,7 +10,7 @@ const RoomModal = ({ visible, onClose }) => {
     navigation.
     
     
-    navigate('gameplay', { mode: 'PVP' }); // Kirim parameter mode PVP
+    navigate('pvp', { mode: 'pvp' }); // Kirim parameter mode PVP
   };
 
   return (
