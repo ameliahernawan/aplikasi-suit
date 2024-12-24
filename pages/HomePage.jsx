@@ -1,19 +1,13 @@
 import { TouchableOpacity, View, Text, Image, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
-import RoomModal from '../component/RoomModal';
 import SettingModal from '../component/SettingModal';
-import GamePlay from './PVP';
+import GamePlay from './GamePlay';
+import { useNavigation } from '@react-navigation/native';
 
 export default function HomePage() {
-  const [gameMode, setGameMode] = useState(null);
-  const [roomModalVisible, setRoomModalVisible] = useState(false);
   const [settingModalVisible, setSettingModalVisible] = useState(false);
   const [showGame, setShowGame] = useState(false);
-
-  const handlePlayNow = () => {
-    setShowGame(mode);
-    setRoomModalVisible(true);
-  };
+  const navigation = useNavigation();
 
   const handleQuitGame = () => {
     setShowGame(false);
@@ -26,7 +20,6 @@ export default function HomePage() {
   }
 
   return (
-
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={() => setSettingModalVisible(true)}>
@@ -53,18 +46,17 @@ export default function HomePage() {
         <Text style={{ fontSize: 20, textAlign: 'center' }}>Choose Mode</Text>
 
         <View style={{ flexDirection: 'row', gap: 12 }}>
-          <TouchableOpacity>
+          <TouchableOpacity style={styles.typeContainer} onPress={() => navigation.navigate('gameplay', { mode: 'PVC' })}>
             <Image source={require('../assets/sun.png')} style={styles.gameType} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.typeContainer} onPress={() => setRoomModalVisible(true)}>
+          <TouchableOpacity style={styles.typeContainer} onPress={() => navigation.navigate('gameplay', { mode: 'PVP' })}>
             <Image source={require('../assets/sun.png')} style={styles.gameType} />
           </TouchableOpacity>
 
-          <RoomModal visible={roomModalVisible} onClose={() => setRoomModalVisible(false)} />
+          {/* <RoomModal visible={roomModalVisible} onClose={() => setRoomModalVisible(false)} /> */}
         </View>
       </View>
-
     </View>
   );
 }

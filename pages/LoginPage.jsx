@@ -1,16 +1,8 @@
-import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  View,
-  Image,
-  ImageBackground,
-  Dimensions,
-  TouchableWithoutFeedback,
-  Keyboard,
-} from "react-native";
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, Image, ImageBackground, Dimensions, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import * as Font from 'expo-font';
-import FormComponent from "../component/FormComponent";
-import { useNavigation } from "@react-navigation/native";
+import FormComponent from '../component/FormComponent';
+import { useNavigation } from '@react-navigation/native';
 
 const { width, height } = Dimensions.get('window');
 
@@ -28,36 +20,11 @@ export default function LoginPage() {
     loadFont();
   }, []);
 
-  if (!fontLoaded) {
-    return null;
-  }
-
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <ImageBackground
-        source={require('../assets/background_image.png')}
-        resizeMode="cover"
-        style={styles.imageBackground}
-      >
+      <ImageBackground source={require('../assets/background_image.png')} resizeMode="cover" style={styles.imageBackground}>
         <View style={styles.container}>
-          <View style={[styles.loginimage, { flex: 1, paddingTop: 80 }]}>
-            <Image
-              style={{ width: width * 0.4, height: height * 0.1 }}
-              source={require('../assets/LOGIN.png')}
-              resizeMode="contain"
-            />
-          </View>
-          <View style={[styles.loginimage, { flex: 2 }]}>
-            <Image
-              style={{ width: width * 0.65, height: height * 0.4 }}
-              source={require('../assets/Fist Logo.png')}
-              resizeMode="contain"
-            />
-          </View>
-          <View style={{ justifyContent: 'center', flex: 2, paddingHorizontal: 30 }}>
-            {/* Pass state prop to FormComponent */}
-            <FormComponent state="login" />
-          </View>
+          <FormComponent />
         </View>
       </ImageBackground>
     </TouchableWithoutFeedback>
@@ -67,7 +34,7 @@ export default function LoginPage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: "100%",
+    width: '100%',
     flexDirection: 'column',
   },
   loginimage: {

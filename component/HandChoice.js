@@ -3,15 +3,25 @@ import { Button, View, StyleSheet, Image, Text, TouchableOpacity } from 'react-n
 
 const HandChoices = ({ onSelect, disabled }) => {
   const choices = [
+<<<<<<< HEAD
     { key: 'rock', source: require('../assets/Comp Batu.png') },
     { key: 'paper', source: require('../assets/Comp Kertas.png') },
     { key: 'scissors', source: require('../assets/Comp Gunting.png') },
+=======
+    { key: 'rock', source: require('../assets/Comp_Batu.png') },
+    { key: 'paper', source: require('../assets/Comp_Kertas.png') },
+    { key: 'scissors', source: require('../assets/Comp_Gunting.png') },
+>>>>>>> 5fa6b5f16f3dde25314e83ffbf96f5bd8653601f
   ];
   return (
     <>
       <View style={styles.choicesContainer}>
         {choices.map((choice) => (
+<<<<<<< HEAD
           <TouchableOpacity key={choice.key} onPress={() => onSelect(choice.key)} disabled={false}>
+=======
+          <TouchableOpacity key={choice.key} onPress={() => onSelect(choice.key)} disabled={disabled}>
+>>>>>>> 5fa6b5f16f3dde25314e83ffbf96f5bd8653601f
             <Image source={choice.source} style={styles.compChoice} />
           </TouchableOpacity>
         ))}
@@ -38,4 +48,8 @@ const styles = StyleSheet.create({
   },
 });
 
+<<<<<<< HEAD
 export default HandChoices;
+=======
+export default HandChoices;
+>>>>>>> 5fa6b5f16f3dde25314e83ffbf96f5bd8653601f
