@@ -1,6 +1,29 @@
+import React, { useState, useEffect } from 'react';
 import { View, Text, Modal, TouchableOpacity, StyleSheet } from 'react-native';
+import * as Font from 'expo-font';
 
 const ResultModal = ({ winner, player1Choice, player2Choice, onPlayAgain }) => {
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  useEffect(() => {
+      async function loadFont() {
+        try {
+          await Font.loadAsync({
+            Handy: require('../assets/HandyCasual.ttf'),
+            Bangers: require('../assets/Bangers-Regular.ttf'),
+          });
+          setFontLoaded(true);
+        } catch (error) {
+          console.error('Error loading font:', error);
+        }
+      }
+      loadFont();
+    }, []);
+  
+    if (!fontLoaded) {
+      return null;
+    }
+    
   return (
     <Modal visible={true} transparent animationType="fade">
       <View style={styles.modalContainer}>
@@ -16,27 +39,34 @@ const ResultModal = ({ winner, player1Choice, player2Choice, onPlayAgain }) => {
 const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
-    justifyContent: 'center', // Posisikan konten di tengah layar
-    alignItems: 'center', // Posisikan secara horizontal di tengah
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Latar belakang transparan hitam untuk efek modal
+    justifyContent: 'center', 
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     padding: 20,
   },
   resultText: {
-    fontSize: 24, // Ukuran teks cukup besar untuk hasil yang mencolok
+    fontSize: 50, 
     fontWeight: 'bold',
-    color: '#fff', // Warna teks putih
-    marginBottom: 20, // Jarak antara teks hasil dan tombol
-    textAlign: 'center', // Teks terpusat
+    color: '#FABB55', 
+    marginBottom: 20, 
+    textAlign: 'center', 
+    fontFamily: 'Bangers',
+    textShadowColor: '#000', 
+    textShadowOffset: { width: 3, height: 5 }, 
+    textShadowRadius: 0, 
+    backgroundColor: '',
+    padding: 10,
+    top: 130 
   },
   playAgainButton: {
-    backgroundColor: '#4CAF50', // Warna tombol hijau
+    backgroundColor: '#4CAF50', 
     paddingVertical: 12,
     paddingHorizontal: 20,
-    borderRadius: 5, // Membuat tombol dengan sudut melengkung
+    borderRadius: 5,
     alignItems: 'center',
   },
   playAgainText: {
-    color: '#fff', // Warna teks tombol putih
+    color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
   },
