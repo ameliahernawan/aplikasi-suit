@@ -8,19 +8,44 @@ import OnboardingPage from './pages/OnboardingPage';
 import HomePage from './pages/HomePage';
 import GamePlay from './pages/GamePlay';
 import { AuthProvider } from './context/AuthContext';
+import { loadFonts } from './src/fonts';
 
 const Stack = createStackNavigator();
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const [fontsLoaded, setFontsLoaded] = useState(false);
 
   //useEffect SplashScreen
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setIsLoading(false);
+  //   }, 3000);
+  //   return () => clearTimeout(timer);
+  // }, []);
+
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
-    return () => clearTimeout(timer);
+    async function prepare() {
+      try {
+        // Load fonts
+        await loadFonts();
+        setFontsLoaded(true);
+
+        // Splash screen timer
+        const timer = setTimeout(() => {
+          setIsLoading(false);
+        }, 3000);
+
+        return () => clearTimeout(timer);
+      } catch (e) {
+        console.error('Error loading fonts:', e);
+      }
+    }
+    prepare();
   }, []);
+  if (!fontsLoaded) {
+    return null; // atau bisa tampilkan loading screen
+  }
 
   return (
     <AuthProvider>

@@ -1,4 +1,4 @@
-import { TouchableOpacity, View, Text, Image, StyleSheet } from 'react-native';
+import { TouchableOpacity, View, Text, Image, StyleSheet, ImageBackground } from 'react-native';
 import React, { useState } from 'react';
 import SettingModal from '../component/SettingModal';
 import GamePlay from './GamePlay';
@@ -20,57 +20,56 @@ export default function HomePage() {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <TouchableOpacity onPress={() => setSettingModalVisible(true)}>
-          <Image source={require('../assets/sun.png')} style={styles.avatar} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setSettingModalVisible(true)}>
-          <Image source={require('../assets/sun.png')} style={styles.avatar} />
-        </TouchableOpacity>
-        <SettingModal visible={settingModalVisible} onClose={() => setSettingModalVisible(false)} />
-      </View>
-
-      <Image source={require('../assets/sun.png')} style={styles.logoImage} />
-
-      <View style={{ justifyContent: 'center', backgroundColor: 'brown', padding: 24, alignItems: 'center' }}>
-        <Text style={{ textAlign: 'center' }}>
-          Best win streak: 999!{'\n'}
-          Wins: 999{'\n'}
-          Draw: 999{'\n'}
-          Lose: 999
-        </Text>
-      </View>
-
-      <View style={{ alignItems: 'center', paddingVertical: 24, gap: 12 }}>
-        <Text style={{ fontSize: 20, textAlign: 'center' }}>Choose Mode</Text>
-
-        <View style={{ flexDirection: 'row', gap: 12 }}>
-          <TouchableOpacity style={styles.typeContainer} onPress={() => navigation.navigate('gameplay', { mode: 'PVC' })}>
-            <Image source={require('../assets/sun.png')} style={styles.gameType} />
+    <ImageBackground source={require('../assets/Background main page.png')} resizeMode="cover" style={styles.imageBackground}>
+      <View style={styles.container}>
+        <View style={styles.headerContainer}>
+          <TouchableOpacity onPress={() => setSettingModalVisible(true)}>
+            <Image source={require('../assets/Avatar F1.png')} style={styles.avatar} />
           </TouchableOpacity>
-
-          <TouchableOpacity style={styles.typeContainer} onPress={() => navigation.navigate('gameplay', { mode: 'PVP' })}>
-            <Image source={require('../assets/sun.png')} style={styles.gameType} />
+          <Image source={require('../assets/Logo.png')} style={styles.logoImage} />
+          <TouchableOpacity onPress={() => setSettingModalVisible(true)}>
+            <Image source={require('../assets/Settings.png')} style={styles.avatar} />
           </TouchableOpacity>
+          <SettingModal visible={settingModalVisible} onClose={() => setSettingModalVisible(false)} />
+        </View>
 
-          {/* <RoomModal visible={roomModalVisible} onClose={() => setRoomModalVisible(false)} /> */}
+        <ImageBackground source={require('../assets/Group 9.png')} style={{ height: 300 }}></ImageBackground>
+
+        <View style={{ alignItems: 'center', gap: 12 }}>
+          <Text style={{ fontSize: 20, textAlign: 'center' }}>CHOOSE GAME MODE</Text>
+
+          <View style={{ flexDirection: 'row', gap: 12 }}>
+            <TouchableOpacity style={{ alignItems: 'center' }} onPress={() => navigation.navigate('gameplay', { mode: 'PVC' })}>
+              <Image source={require('../assets/PVC.png')} style={{}} />
+              <Text>Player vs Computer</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={{ alignItems: 'center' }} onPress={() => navigation.navigate('gameplay', { mode: 'PVP' })}>
+              <Image source={require('../assets/PVP.png')} style={{}} />
+              <Text style={{ fontFamily: 'Handy' }}>Player vs Player</Text>
+            </TouchableOpacity>
+
+            {/* <RoomModal visible={roomModalVisible} onClose={() => setRoomModalVisible(false)} /> */}
+          </View>
         </View>
       </View>
-    </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  imageBackground: {
+    flex: 1,
+  },
   container: {
     flex: 1,
-    margin: 28,
     gap: 50,
   },
   headerContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginTop: 35,
   },
   avatar: {
     height: 48,
@@ -78,16 +77,7 @@ const styles = StyleSheet.create({
   },
   logoImage: {
     alignSelf: 'center',
-    height: 200,
-    width: 210,
-  },
-  typeContainer: {
-    backgroundColor: 'pink',
-    padding: 24,
-    borderRadius: 20,
-  },
-  gameType: {
-    height: 48,
-    width: 48,
+    height: 100,
+    width: 140,
   },
 });
