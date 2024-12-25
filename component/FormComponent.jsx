@@ -39,7 +39,7 @@ export default function FormComponent({ state }) {
       console.log(response.token);
       navigation.navigate('home');
     } catch (error) {
-      alert('Email atau password anda salah');
+      const errorLogin = 'Email atau password anda salah';
       console.log(error);
     }
   };
@@ -83,6 +83,7 @@ export default function FormComponent({ state }) {
 
           {/* Input email */}
           <TextInput style={styles.formComponent} text="Email" placeholder="Enter your email" value={email} onChangeText={setEmail} autoCorrect={false} autoCapitalize="none" />
+          {<Text style={{ color: 'red' }}>{errorLogin}</Text>}
 
           {/* Input password */}
           <View style={styles.passwordContainer}>
