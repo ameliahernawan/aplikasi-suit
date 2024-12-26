@@ -28,7 +28,7 @@ export default function HomePage() {
           </TouchableOpacity>
           <Image source={require('../assets/Logo.png')} style={styles.logoImage} />
           <TouchableOpacity onPress={() => setSettingModalVisible(true)}>
-            <Image source={require('../assets/Settings.png')} style={styles.avatar} />
+            <Image source={require('../assets/Setting Icon.png')} style={styles.avatar} />
           </TouchableOpacity>
           <SettingModal visible={settingModalVisible} onClose={() => setSettingModalVisible(false)} />
         </View>
