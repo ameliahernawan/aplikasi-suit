@@ -22,8 +22,6 @@ const GamePlay = () => {
 
    const navigation = useNavigation();
   
-
-
   const [stats, setStats] = useState({
     player1: {
       wins: 0,
@@ -155,9 +153,9 @@ const GamePlay = () => {
   };
 
   return (
-    <ImageBackground source={require('../assets/Component 1.png')} resizeMode="cover" style={styles.imageBackground}>
+    <ImageBackground source={require('../assets/Background Gameplay.png')} resizeMode="cover" style={styles.imageBackground}>
      <TouchableOpacity style={styles.backButton} onPress={handleBackButtonPress}>
-        <Icon name="arrow-back" size={30} color="black" />
+        <Image source={require('../assets/Back Button.png')} style={styles.avatar}/>
       </TouchableOpacity>
 
     <View style={[styles.container]}>
@@ -173,7 +171,7 @@ const GamePlay = () => {
       {gameState.player1Choice && mode === 'PVP' && <HandChoices onSelect={handlePlayer2Choice} disabled={false} />}
 
       {/* Buat nampilin pilihan yang dipilih */}
-      <View style={{flexDirection: 'row', backgroundColor:'black', justifyContent: 'space-between', bottom: 220}}>
+      <View style={{flexDirection: 'row', justifyContent: 'space-between', bottom: 220}}>
       {gameState.player1Choice && gameState.player2Choice && (
         <>
           <SelectedChoice player={1} choice={gameState.player1Choice} image={choiceImages[gameState.player1Choice]} />
@@ -205,28 +203,13 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    top: 40, // Adjust based on your layout
-    left: 20, // Adjust based on your layout
-    zIndex: 10, // Ensures it is above other elements
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
-    padding: 10,
-    borderRadius: 20, // Circular button
-    backgroundColor: '#FABB55',
-    fontSize: 16,
-    paddingVertical: 5,
-    paddingHorizontal: 25,
-    marginHorizontal: 10,
-    marginVertical: 5,
-    borderColor: 'black',
-    borderWidth: 2,
-    borderBottomWidth: 10,
-    fontFamily: 'Handy'
+    top: 40,
+    left: 20,
+    zIndex: 10,
   },
-
   VSimage: {
     height: 50,
     width: 50,
-    //zIndex: ,
     backgroundColor: ''
   },
   resultText: {
@@ -242,7 +225,6 @@ const styles = StyleSheet.create({
     top: 10,
     padding: 10
   },
-
   imageBackground: {
     flex: 1,
     // width: '100%',
