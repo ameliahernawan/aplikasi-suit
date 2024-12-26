@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, StyleSheet, Text, View, Image, ImageBackground, TouchableOpacity } from 'react-native';
 import AvatarModal from './AvatarModal';
-import { useState } from 'react';
 import { BUTTONS, TEXT } from '../src/globalStyle';
 import Settingstitle from '../assets/Setting.png'; // Ensure this is the correct path to your image file
 

@@ -53,7 +53,6 @@ export default function RegisterPage() {
 
     if (valid) {
       try {
-        // Simulate API call
         const response = await register(fullname, email, password, avatarUrl);
 
         Alert.alert('Success', 'Registration successful!', [{ text: 'OK', onPress: () => navigation.navigate('Login') }]);

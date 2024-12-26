@@ -49,19 +49,18 @@ export const register = async (userName, email, password, avatarID = '1') => {
     console.log(response);
     return response.data;
   } catch (error) {
-    const errorResponse = error.response?.data?.error;
+    console.error('Register API error:', error.response?.data);
 
-    // Check duplicate key error
-    if (errorResponse?.code === 11000) {
-      const errorMsg = errorResponse.errmsg || '';
-      if (errorMsg.includes('Username')) {
-        throw new Error('Username already in use');
-      }
-      if (errorMsg.includes('Email')) {
-        throw new Error('Email already in use');
-      }
+    const errorMessage = error.response?.data?.error;
+
+    // Menangani error khusus untuk username dan email
+    if (errorMessage.includes('Username')) {
+      throw new Error('Username already in use');
     }
-    throw new Error('Registration failed');
+    if (errorMessage.includes('email')) {
+      throw new Error('Email already in use');
+    }
+    throw new Error('gagal');
   }
 };
 

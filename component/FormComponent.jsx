@@ -1,34 +1,28 @@
 import { useState, useEffect } from 'react';
-import {
-  KeyboardAvoidingView,
-  StyleSheet,
-  SafeAreaView,
-  TextInput,
-  View,
-  Text,
-  Image,
-  Dimensions,
-  TouchableOpacity,
-  ScrollView,
-  Platform,
-} from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, SafeAreaView, TextInput, View, Text, Image, Dimensions, TouchableOpacity, ScrollView, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../context/AuthContext';
 import { login, register } from '../api/restApi';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as Font from 'expo-font';
+import { validateForm } from '../src/formValidation';
 
 const { width, height } = Dimensions.get('window');
 
 export default function FormComponent({ state }) {
-  const [fontLoaded, setFontLoaded] = useState(false);
   const [username, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
   const [secureTextEntry, setSecureTextEntry] = useState(true);
+
   const [usernameError, setUsernameError] = useState('');
   const [emailError, setEmailError] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+
+  const [usernameErrorMessage, setUsernameErrorMessage] = useState('');
+  const [emailErrorMessage, setEmailErrorMessage] = useState('');
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
   const auth = useAuth();
 
   const navigation = useNavigation();
@@ -38,39 +32,17 @@ export default function FormComponent({ state }) {
   };
 
   const handleSubmitRegister = () => {
-    let valid = true;
+    setUsernameError('');
+    setEmailError('');
 
-  const handleLogin = async (email, password) => {
-    try {
-      const response = await login(email, password);
-      await auth.login(response.token);
-      console.log(response.token);
-      navigation.navigate('home');
-    } catch (error) {
-      alert('Email atau password anda salah');
-      console.log(error);
-    // Reset error message
-    setErrorMessage('');
+    const { usernameErrorMessage, emailErrorMessage, passwordErrorMessage, isValid } = validateForm(username, email, password);
 
-    // Validate Username
-    if (username.length <= 3) {
-      setErrorMessage('Username must be more than 3 characters.');
-      valid = false;
-    }
+    // Set error messages
+    setUsernameErrorMessage(usernameErrorMessage);
+    setEmailErrorMessage(emailErrorMessage);
+    setPasswordErrorMessage(passwordErrorMessage);
 
-    // Validate Email
-    if (!email.includes('@')) {
-      setErrorMessage('Email must contain "@" symbol.');
-      valid = false;
-    }
-
-    // Validate Password
-    if (password.length < 7) {
-      setErrorMessage('Password must be at least 7 characters long.');
-      valid = false;
-    }
-
-    if (valid) {
+    if (isValid) {
       handleRegister(username, email, password);
     }
   };
@@ -80,13 +52,12 @@ export default function FormComponent({ state }) {
       const response = await register(username, email, password, '1');
       navigation.navigate('login');
     } catch (error) {
-      if (error.message === 'Email already in use') {
+      console.log(error);
+      if (error.message.includes('Email already in use')) {
         setEmailError('Email already in use');
-      } else if (error.message === 'Username already in use') {
-        // Asumsi ada pesan serupa untuk username
+      } else if (error.message.includes('Username already in use')) {
         setUsernameError('Username already in use');
       }
-      setErrorMessage('Registration failed. Please try again.');
       console.error(error);
     }
   };
@@ -110,64 +81,27 @@ export default function FormComponent({ state }) {
     }
   };
 
-  useEffect(() => {
-    async function loadFont() {
-      try {
-        await Font.loadAsync({
-          Handy: require('../assets/HandyCasual.ttf'),
-          Bangers: require('../assets/Bangers-Regular.ttf'),
-        });
-        setFontLoaded(true);
-      } catch (error) {
-        console.error('Error loading font:', error);
-      }
-    }
-    loadFont();
-  }, []);
-
-  if (!fontLoaded) {
-    return null;
-  }
-
   return (
-    <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-    >
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled">
         <SafeAreaView style={{ flex: 1 }}>
           {/* Logo */}
           <View style={[styles.loginimage]}>
-            <Image
-              style={{ width: width * 0.65, height: height * 0.4 }}
-              source={require('../assets/Logo.png')}
-              resizeMode="contain"
-            />
+            <Image style={{ width: width * 0.65, height: height * 0.4 }} source={require('../assets/Logo.png')} resizeMode="contain" />
           </View>
 
           {/* Page Title */}
           {state === 'register' ? (
             <View style={[styles.loginimage]}>
-              <Image
-                style={{ width: width * 0.7, height: height * 0.1 }}
-                source={require('../assets/CREATE ACCOUNT.png')}
-                resizeMode="contain"
-              />
+              <Image style={{ width: width * 0.7, height: height * 0.1 }} source={require('../assets/CREATE ACCOUNT.png')} resizeMode="contain" />
             </View>
           ) : (
             <View style={[styles.loginimage]}>
-              <Image
-                style={{ width: width * 0.3, height: height * 0.1 }}
-                source={require('../assets/LOGIN.png')}
-                resizeMode="contain"
-              />
+              <Image style={{ width: width * 0.3, height: height * 0.1 }} source={require('../assets/LOGIN.png')} resizeMode="contain" />
             </View>
           )}
 
-          {/* Error Message */}
-          {errorMessage ? <Text style={styles.errorText}>{errorMessage}</Text> : null}
-
-          {/* Input Fields */}
+          {/* Username Text Input */}
           {state === 'register' && (
             <TextInput
               style={styles.formComponent}
@@ -175,24 +109,32 @@ export default function FormComponent({ state }) {
               value={username}
               onChangeText={(value) => {
                 setUserName(value);
-                setUsernameError('');
-                if (errorMessage) setErrorMessage('');
+                if (usernameError) setUsernameError('');
+                if (usernameErrorMessage) setUsernameErrorMessage('');
               }}
               autoCorrect={false}
             />
           )}
+          {/* Error Message */}
+          {(usernameError || usernameErrorMessage) && <Text style={styles.errorText}>{usernameError || usernameErrorMessage}</Text>}
+
+          {/* Email Text Input */}
           <TextInput
             style={styles.formComponent}
             placeholder="Enter your email"
             value={email}
             onChangeText={(value) => {
               setEmail(value);
-              setEmailError('');
-              if (errorMessage) setErrorMessage('');
+              if (emailError) setEmailError('');
+              if (emailErrorMessage) setEmailErrorMessage('');
             }}
             autoCorrect={false}
             autoCapitalize="none"
           />
+          {/* Error Message */}
+          {(emailError || emailErrorMessage) && <Text style={styles.errorText}>{emailError || emailErrorMessage}</Text>}
+
+          {/* Password Text Input */}
           <View style={styles.passwordContainer}>
             <TextInput
               style={[styles.passwordInput]}
@@ -200,7 +142,7 @@ export default function FormComponent({ state }) {
               value={password}
               onChangeText={(value) => {
                 setPassword(value);
-                if (errorMessage) setErrorMessage('');
+                if (passwordErrorMessage) setPasswordErrorMessage('');
               }}
               autoCorrect={false}
               autoCapitalize="none"
@@ -210,6 +152,8 @@ export default function FormComponent({ state }) {
               <Icon name={secureTextEntry ? 'visibility-off' : 'visibility'} size={24} color="black" />
             </TouchableOpacity>
           </View>
+          {/* Error Message */}
+          {passwordErrorMessage ? <Text style={styles.errorText}>{passwordErrorMessage}</Text> : null}
 
           {/* Buttons */}
           {state === 'register' ? (
