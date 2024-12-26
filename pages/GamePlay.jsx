@@ -22,8 +22,6 @@ const GamePlay = () => {
 
    const navigation = useNavigation();
   
-
-
   const [stats, setStats] = useState({
     player1: {
       wins: 0,
@@ -173,7 +171,7 @@ const GamePlay = () => {
       {gameState.player1Choice && mode === 'PVP' && <HandChoices onSelect={handlePlayer2Choice} disabled={false} />}
 
       {/* Buat nampilin pilihan yang dipilih */}
-      <View style={{flexDirection: 'row', backgroundColor:'black', justifyContent: 'space-between', bottom: 220}}>
+      <View style={{flexDirection: 'row', justifyContent: 'space-between', bottom: 220}}>
       {gameState.player1Choice && gameState.player2Choice && (
         <>
           <SelectedChoice player={1} choice={gameState.player1Choice} image={choiceImages[gameState.player1Choice]} />
@@ -226,7 +224,6 @@ const styles = StyleSheet.create({
   VSimage: {
     height: 50,
     width: 50,
-    //zIndex: ,
     backgroundColor: ''
   },
   resultText: {
