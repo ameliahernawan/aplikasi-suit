@@ -153,9 +153,9 @@ const GamePlay = () => {
   };
 
   return (
-    <ImageBackground source={require('../assets/Component 1.png')} resizeMode="cover" style={styles.imageBackground}>
+    <ImageBackground source={require('../assets/Background Gameplay.png')} resizeMode="cover" style={styles.imageBackground}>
      <TouchableOpacity style={styles.backButton} onPress={handleBackButtonPress}>
-        <Icon name="arrow-back" size={30} color="black" />
+        <Image source={require('../assets/Back Button.png')} style={styles.avatar}/>
       </TouchableOpacity>
 
     <View style={[styles.container]}>
@@ -203,24 +203,10 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    top: 40, // Adjust based on your layout
-    left: 20, // Adjust based on your layout
-    zIndex: 10, // Ensures it is above other elements
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
-    padding: 10,
-    borderRadius: 20, // Circular button
-    backgroundColor: '#FABB55',
-    fontSize: 16,
-    paddingVertical: 5,
-    paddingHorizontal: 25,
-    marginHorizontal: 10,
-    marginVertical: 5,
-    borderColor: 'black',
-    borderWidth: 2,
-    borderBottomWidth: 10,
-    fontFamily: 'Handy'
+    top: 40,
+    left: 20,
+    zIndex: 10,
   },
-
   VSimage: {
     height: 50,
     width: 50,
@@ -239,7 +225,6 @@ const styles = StyleSheet.create({
     top: 10,
     padding: 10
   },
-
   imageBackground: {
     flex: 1,
     // width: '100%',
