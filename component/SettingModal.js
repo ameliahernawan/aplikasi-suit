@@ -2,36 +2,38 @@ import { Modal, SafeAreaView, StyleSheet, Text, View, Image, ImageBackground, To
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AvatarModal from './AvatarModal';
 import { useState } from 'react';
+import { BUTTONS, TEXT } from '../src/globalStyle';
 
 const SettingModal = ({ visible, onClose }) => {
   const [avatarModalVisible, setAvatarModalVisible] = useState(false);
   return (
     <Modal visible={visible} onRequestClose={onClose} transparent={true} animationType="none">
       <View style={styles.centeredView}>
-        <View style={styles.modalView}>
-          <Text style={styles.modalTitle}>Settings</Text>
-          <View style={{ gap: 20 }}>
-            <TouchableOpacity style={styles.button} onPress={() => setAvatarModalVisible(true)}>
-              <Text>Change Avatar</Text>
-            </TouchableOpacity>
-            <AvatarModal visible={avatarModalVisible} onClose={() => setAvatarModalVisible(false)} />
-            <TouchableOpacity style={styles.button}>
-              <Text>Tutorial</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
-              <Text>Log out</Text>
+        <ImageBackground source={require('../assets/Background main page.png')} resizeMode="cover" style={styles.modalView}>
+          <View style={{}}>
+            <Text style={TEXT.tittle}>Settings</Text>
+            <View style={{ paddingBottom: 20, gap: 10 }}>
+              <TouchableOpacity style={BUTTONS.primary}>
+                <Text style={styles.menuText}>TUTORIAL</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={BUTTONS.danger}>
+                <Text style={styles.menuText}>LOG OUT</Text>
+              </TouchableOpacity>
+            </View>
+            <TouchableOpacity style={BUTTONS.secondary} onPress={onClose}>
+              <Text style={styles.menuText}>BACK</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.backButton} onPress={onClose}>
-            <Text>Back</Text>
-          </TouchableOpacity>
-        </View>
+        </ImageBackground>
       </View>
     </Modal>
   );
 };
 
 const styles = StyleSheet.create({
+  imageBackground: {
+    flex: 1,
+  },
   centeredView: {
     flex: 1,
     justifyContent: 'center',
@@ -40,7 +42,6 @@ const styles = StyleSheet.create({
   },
   modalView: {
     width: '80%',
-    backgroundColor: 'white',
     borderRadius: 20,
     padding: 20,
     alignItems: 'center',
@@ -53,17 +54,13 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
-  modalTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    margin: 12,
-  },
   button: {
     backgroundColor: 'brown',
     padding: 12,
     borderRadius: 5,
     alignItems: 'center',
   },
+  menuText: { fontFamily: 'Handy', fontSize: 24, color: 'white', textShadowColor: 'black', textShadowOffset: { width: 2, height: 2 }, textShadowRadius: 0.1 },
   backButton: {
     backgroundColor: 'pink',
     padding: 12,

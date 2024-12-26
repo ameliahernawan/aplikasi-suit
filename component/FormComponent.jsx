@@ -14,6 +14,8 @@ export default function FormComponent({ state }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [secureTextEntry, setSecureTextEntry] = useState(true);
+  const [usernameError, setUsernameError] = useState('');
+  const [emailError, setEmailError] = useState('');
   const auth = useAuth();
 
   const navigation = useNavigation();
@@ -41,7 +43,7 @@ export default function FormComponent({ state }) {
       console.log(response.token);
       navigation.navigate('home');
     } catch (error) {
-      const errorLogin = 'Email atau password anda salah';
+      alert('Email atau password anda salah');
       console.log(error);
     }
   };
@@ -51,8 +53,12 @@ export default function FormComponent({ state }) {
       const response = await register(username, email, password, '1');
       navigation.navigate('login');
     } catch (error) {
-      alert('Error: ', error);
-      console.log(error);
+      if (error.message === 'Email already in use') {
+        setEmailError('Email already in use');
+      } else if (error.message === 'Username already in use') {
+        // Asumsi ada pesan serupa untuk username
+        setUsernameError('Username already in use');
+      }
     }
   };
 
@@ -100,10 +106,40 @@ export default function FormComponent({ state }) {
           )}
 
           {/* Render input username jika state adalah register */}
-          {state === 'register' && <TextInput style={styles.formComponent} placeholder="Username" value={username} onChangeText={setUserName} autoCorrect={false} />}
+          {state === 'register' && (
+            <View>
+              <TextInput
+                style={styles.formComponent}
+                placeholder="Username"
+                value={username}
+                onChangeText={(text) => {
+                  setUserName(text);
+                  setUsernameError(''); // Reset error saat user mengetik
+                }}
+                autoCorrect={false}
+              />
+              {/* {usernameError ? <Text style={{ color: 'red', marginBottom: 5 }}>{usernameError}</Text> : null} */}
+              {usernameError && <Text style={styles.errorText}>{usernameError}</Text>}
+            </View>
+          )}
 
           {/* Input email */}
-          <TextInput style={styles.formComponent} text="Email" placeholder="Enter your email" value={email} onChangeText={setEmail} autoCorrect={false} autoCapitalize="none" />
+          <View>
+            <TextInput
+              style={styles.formComponent}
+              text="Email"
+              placeholder="Enter your email"
+              value={email}
+              onChangeText={(text) => {
+                setEmail(text);
+                setEmailError(''); // Reset error saat user mengetik
+              }}
+              autoCorrect={false}
+              autoCapitalize="none"
+            />
+            {/* {emailError ? <Text style={{ color: 'red', marginBottom: 5 }}>{emailError}</Text> : null} */}
+            {emailError && <Text style={styles.errorText}>{emailError}</Text>}
+          </View>
 
           {/* Input password */}
           <View style={styles.passwordContainer}>

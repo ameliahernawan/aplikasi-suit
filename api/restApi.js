@@ -49,7 +49,19 @@ export const register = async (userName, email, password, avatarID = '1') => {
     console.log(response);
     return response.data;
   } catch (error) {
-    throw new Error(error.response?.data?.error || 'Registration failed');
+    const errorResponse = error.response?.data?.error;
+
+    // Check duplicate key error
+    if (errorResponse?.code === 11000) {
+      const errorMsg = errorResponse.errmsg || '';
+      if (errorMsg.includes('Username')) {
+        throw new Error('Username already in use');
+      }
+      if (errorMsg.includes('Email')) {
+        throw new Error('Email already in use');
+      }
+    }
+    throw new Error('Registration failed');
   }
 };
 
