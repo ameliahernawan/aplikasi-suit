@@ -38,22 +38,18 @@ export default function FormComponent({ state }) {
   const handleSubmitRegister = () => {
     let valid = true;
 
-    // Reset error message
     setErrorMessage('');
 
-    // Validate Username
     if (username.length <= 3) {
       setErrorMessage('Username must be more than 3 characters.');
       valid = false;
     }
 
-    // Validate Email
     if (!email.includes('@')) {
       setErrorMessage('Email must contain "@" symbol.');
       valid = false;
     }
 
-    // Validate Password
     if (password.length < 7) {
       setErrorMessage('Password must be at least 7 characters long.');
       valid = false;
