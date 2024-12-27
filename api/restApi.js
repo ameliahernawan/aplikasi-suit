@@ -1,24 +1,21 @@
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-const token = AsyncStorage.getItem('userToken');
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const api = axios.create({
-  baseURL: 'http://13.55.211.40:3000',
+  baseURL: "http://13.55.211.40:3000",
 });
 
-export const fetchUser = async () => {
-  const token = await AsyncStorage.getItem('userToken');
+export const fetchUser = async (token) => {
   try {
-    const response = await api.get('/auth/current-user', {
+    const response = await api.get("/auth/current-user", {
       headers: {
         Authorization: token,
       },
     });
-    return response.data.data;
+    return response.data;
   } catch (error) {
-    console.error('Error fetching user: ', error);
-    throw new Error('Failed to fetch user data');
+    console.error("Error fetching user: ", error);
+    throw new Error("Failed to fetch user data");
   }
 };
 
@@ -29,15 +26,33 @@ export const login = async (email, password) => {
       password,
     };
 
-    const response = await api.post('/auth/login', body);
-    console.log(response);
+    const response = await api.post("/auth/login", body);
     return response.data;
   } catch (error) {
-    throw new Error(error.response?.data?.error || 'Login failed');
+    throw new Error(error.response?.data?.error || "Login failed");
   }
 };
 
-export const register = async (userName, email, password, avatarID = '1') => {
+export const createMatch = async (player_one_id, player_two_id) => {
+  const token = await AsyncStorage.getItem("userToken");
+  try {
+    const body = {
+      player_one_id,
+      player_two_id,
+    };
+
+    const response = await api.post("/gameplay/create-match", body, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.error || "Create match failed");
+  }
+};
+
+export const register = async (userName, email, password, avatarID = "1") => {
   try {
     const body = {
       username: userName,
@@ -45,22 +60,22 @@ export const register = async (userName, email, password, avatarID = '1') => {
       password: password,
       avatar_id: avatarID,
     };
-    const response = await api.post('/auth/register', body);
+    const response = await api.post("/auth/register", body);
     console.log(response);
     return response.data;
   } catch (error) {
-    console.error('Register API error:', error.response?.data);
+    console.error("Register API error:", error.response?.data);
 
     const errorMessage = error.response?.data?.error;
 
     // Menangani error khusus untuk username dan email
-    if (errorMessage.includes('Username')) {
-      throw new Error('Username already in use');
+    if (errorMessage.includes("Username")) {
+      throw new Error("Username already in use");
     }
-    if (errorMessage.includes('email')) {
-      throw new Error('Email already in use');
+    if (errorMessage.includes("email")) {
+      throw new Error("Email already in use");
     }
-    throw new Error('gagal');
+    throw new Error("gagal");
   }
 };
 

@@ -27,8 +27,6 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   choicesContainer: {
-    position: 'absolute',
-    bottom: '25%',
     left: 0,
     right: 0,
     flexDirection: 'row',

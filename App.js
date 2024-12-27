@@ -7,23 +7,25 @@ import RegisterPage from "./pages/RegisterPage";
 import OnboardingPage from "./pages/OnboardingPage";
 import HomePage from "./pages/HomePage";
 import GameplayPage from "./pages/GameplayPage";
-import { AuthProvider } from "./context/AuthContext";
+import { AuthProvider, useAuth } from "./context/AuthContext";
 import { loadFonts } from "./src/fonts";
 
 const Stack = createStackNavigator();
 
-export default function App() {
+const AppNavigator = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [fontsLoaded, setFontsLoaded] = useState(false);
+  const { isLogin } = useAuth(); // Access isLogin from AuthContext
 
   useEffect(() => {
     async function prepare() {
       try {
         await loadFonts();
         setFontsLoaded(true);
+
         const timer = setTimeout(() => {
-          setIsLoading(false);
-        }, 3000);
+          setIsLoading(false); // Finish loading splash screen
+        }, 1000);
 
         return () => clearTimeout(timer);
       } catch (e) {
@@ -32,50 +34,60 @@ export default function App() {
     }
     prepare();
   }, []);
+
   if (!fontsLoaded) {
     return null;
   }
 
   return (
+    <Stack.Navigator initialRouteName="splash">
+      {isLoading ? (
+        <Stack.Screen
+          name="splash"
+          component={SplashScreen}
+          options={{ headerShown: false }}
+        />
+      ) : isLogin ? ( // Check if the user is logged in
+        <>
+          <Stack.Screen
+            name="home"
+            component={HomePage}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="gameplay"
+            component={GameplayPage}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="onboarding"
+            component={OnboardingPage}
+            options={{ headerShown: false }}
+          />
+        </>
+      ) : (
+        <>
+          <Stack.Screen
+            name="login"
+            component={LoginPage}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="register"
+            component={RegisterPage}
+            options={{ headerShown: false }}
+          />
+        </>
+      )}
+    </Stack.Navigator>
+  );
+};
+
+export default function App() {
+  return (
     <AuthProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="splash">
-          {isLoading ? (
-            <Stack.Screen
-              name="splash"
-              component={SplashScreen}
-              options={{ headerShown: false }}
-            />
-          ) : (
-            <>
-              <Stack.Screen
-                name="home"
-                component={HomePage}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="login"
-                component={LoginPage}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="register"
-                component={RegisterPage}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="onboarding"
-                component={OnboardingPage}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="gameplay"
-                component={GameplayPage}
-                options={{ headerShown: false }}
-              />
-            </>
-          )}
-        </Stack.Navigator>
+        <AppNavigator />
       </NavigationContainer>
     </AuthProvider>
   );

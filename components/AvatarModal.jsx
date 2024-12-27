@@ -45,9 +45,6 @@ const AvatarModal = ({ visible, onClose }) => {
                   <Image source={Avatars[4]} style={styles.gameType} />
                 </TouchableOpacity>
               </View>
-              <TouchableOpacity style={styles.modalButton} onPress={onClose}>
-                <Text style={styles.buttonText}>Pick</Text>
-              </TouchableOpacity>
             </ImageBackground>
           </TouchableWithoutFeedback>
         </View>

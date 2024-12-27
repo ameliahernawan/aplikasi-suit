@@ -4,8 +4,6 @@ import * as Font from 'expo-font';
 import FormComponent from '../components/FormComponent';
 import { useNavigation } from '@react-navigation/native';
 
-const { width, height } = Dimensions.get('window');
-
 export default function LoginPage() {
   const [fontLoaded, setFontLoaded] = useState(false);
   const navigation = useNavigation();

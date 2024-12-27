@@ -7,14 +7,17 @@ import { Avatars } from "../../utils/Avatar";
 
 const logo = require("../../assets/Logo.png");
 const settingsIcon = require("../../assets/Icon/Settings.png");
+import { useAuth } from "../../context/AuthContext";
 
 const Header = () => {
   const [settingModalVisible, setSettingModalVisible] = useState(false);
   const [avatarModalVisible, setAvatarModalVisible] = useState(false);
+  const { logout } = useAuth();
+
   return (
     <View style={styles.headerContainer}>
       <TouchableOpacity onPress={() => setAvatarModalVisible(true)}>
-        <Image source={Avatars[1]} style={styles.Icon} />
+        <Image source={Avatars[4]} style={styles.Icon} />
       </TouchableOpacity>
       <AvatarModal
         visible={avatarModalVisible}
@@ -28,6 +31,7 @@ const Header = () => {
       <SettingModal
         visible={settingModalVisible}
         onClose={() => setSettingModalVisible(false)}
+        logout={logout}
       />
     </View>
   );

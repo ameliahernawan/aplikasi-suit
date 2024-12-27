@@ -13,7 +13,7 @@ import { BUTTONS, TEXT } from "../src/globalStyle";
 
 const bg = require("../assets/Background main page.png");
 
-const SettingModal = ({ visible, onClose }) => {
+const SettingModal = ({ visible, onClose, logout }) => {
   return (
     <Modal
       visible={visible}
@@ -36,7 +36,7 @@ const SettingModal = ({ visible, onClose }) => {
                     <TouchableOpacity style={BUTTONS.primary}>
                       <Text style={styles.menuText}>TUTORIAL</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={BUTTONS.danger}>
+                    <TouchableOpacity style={BUTTONS.danger} onPress={(logout)}>
                       <Text style={styles.menuText}>LOG OUT</Text>
                     </TouchableOpacity>
                   </View>

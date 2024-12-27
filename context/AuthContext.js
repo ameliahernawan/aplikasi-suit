@@ -1,5 +1,6 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { createContext, useContext, useEffect, useState } from 'react';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { createContext, useContext, useEffect, useState } from "react";
+import { fetchUser } from "../api/restApi";
 
 const AuthContext = createContext();
 
@@ -10,7 +11,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
-        const savedToken = await AsyncStorage.getItem('userToken');
+        const savedToken = await AsyncStorage.getItem("userToken");
         if (savedToken) {
           setUser({ token: savedToken });
           setIsLogin(true);
@@ -18,30 +19,43 @@ export const AuthProvider = ({ children }) => {
           setIsLogin(false);
         }
       } catch (error) {
-        console.log('failed');
+        console.log("failed");
       }
     };
     checkLoginStatus();
   }, []);
 
   const login = async (token) => {
-    setUser({ token });
+    const fetchedData = await fetchUser(token);
+    setUser({ token, userData: fetchedData.user });
     setIsLogin(true);
-    await AsyncStorage.setItem('userToken', token);
+    await AsyncStorage.setItem("userToken", token);
   };
 
   const register = async (token) => {
     setUser({ token });
-    await AsyncStorage.setItem('userToken', token);
+    await AsyncStorage.setItem("userToken", token);
   };
 
   const logout = async () => {
     setUser(null);
     setIsLogin(false);
-    await AsyncStorage.removeItem('userToken');
+    await AsyncStorage.removeItem("userToken");
   };
 
-  return <AuthContext.Provider value={{ login, register, logout, user, isLogin }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ login, register, logout, user, isLogin }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+
+  if (context === undefined) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+
+  return context;
+};

@@ -2,39 +2,32 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import { TEXT } from "../../src/globalStyle";
 import React from "react";
 
-const GameModeOptions = () => {
+const pvc = require("../../assets/PVC.png");
+const pvp = require("../../assets/PVP.png");
+
+const GameModeOptions = ({handleNavigation}) => {
+
+
   return (
     <View style={{ alignItems: "center", gap: 12, justifyContent: "center" }}>
       <View style={{ width: "100%" }}>
-        <Text
-          style={{
-            fontSize: 40,
-            textAlign: "center",
-            fontFamily: "Bangers",
-            color: "white",
-            textShadowColor: "black",
-            textShadowOffset: { width: 4, height: 4 },
-            textShadowRadius: 0.4,
-          }}
-        >
-          CHOOSE GAME MODE :
-        </Text>
+        <Text style={TEXT.title}>CHOOSE GAME MODE :</Text>
       </View>
 
       <View style={{ flexDirection: "row", gap: 12 }}>
         <TouchableOpacity
           style={{ alignItems: "center" }}
-          onPress={() => navigation.navigate("gameplay", { mode: "PVC" })}
+          onPress={() => handleNavigation("PVC")}
         >
-          <Image source={require("../../assets/PVC.png")} style={styles.card} />
+          <Image source={pvc} style={styles.card} />
           <Text style={styles.modeText}>Player vs Computer</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={{ alignItems: "center" }}
-          onPress={() => navigation.navigate("gameplay", { mode: "PVP" })}
+          onPress={() => handleNavigation("PVP")}
         >
-          <Image source={require("../../assets/PVP.png")} style={styles.card} />
+          <Image source={pvp} style={styles.card} />
           <Text style={styles.modeText}>Player vs Player</Text>
         </TouchableOpacity>
       </View>
@@ -58,4 +51,5 @@ const styles = StyleSheet.create({
     height: 200,
     resizeMode: "contain",
   },
+
 });
