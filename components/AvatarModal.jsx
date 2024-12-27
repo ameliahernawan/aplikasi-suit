@@ -1,59 +1,76 @@
-import { Modal, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import {
+  Modal,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  ImageBackground,
+} from "react-native";
+
+import { TEXT } from "../src/globalStyle";
+import { Avatars } from "../utils/Avatar";
+
+const bg = require("../assets/Background main page.png");
 
 const AvatarModal = ({ visible, onClose }) => {
   return (
-    <Modal visible={visible} onRequestClose={onClose} transparent={true} animationType="none">
-      <View style={styles.centeredView}>
-        <View style={styles.modalView}>
-          <Text style={styles.modalTitle}>Choose your avatar</Text>
-          <View style={styles.gridContainer}>
-            <TouchableOpacity>
-              <Image source={require('../assets/Avatar F1.png')} style={styles.gameType} />
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Image source={require('../assets/Avatar F2.png')} style={styles.gameType} />
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Image source={require('../assets/Avatar M1.png')} style={styles.gameType} />
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Image source={require('../assets/Avatar M2.png')} style={styles.gameType} />
-            </TouchableOpacity>
-          </View>
-          <TouchableOpacity style={styles.modalButton} onPress={onClose}>
-            <Text>Pick</Text>
-          </TouchableOpacity>
+    <Modal
+      visible={visible}
+      onRequestClose={onClose}
+      transparent={true}
+      animationType="none"
+    >
+      <TouchableWithoutFeedback onPress={onClose}>
+        <View style={styles.centeredView}>
+          <TouchableWithoutFeedback>
+            <ImageBackground
+              source={bg}
+              resizeMode="cover"
+              style={styles.modalView}
+            >
+              <Text style={TEXT.title}>Choose your avatar</Text>
+              <View style={styles.gridContainer}>
+                <TouchableOpacity>
+                  <Image source={Avatars[1]} style={styles.gameType} />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <Image source={Avatars[2]} style={styles.gameType} />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <Image source={Avatars[3]} style={styles.gameType} />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <Image source={Avatars[4]} style={styles.gameType} />
+                </TouchableOpacity>
+              </View>
+              <TouchableOpacity style={styles.modalButton} onPress={onClose}>
+                <Text style={styles.buttonText}>Pick</Text>
+              </TouchableOpacity>
+            </ImageBackground>
+          </TouchableWithoutFeedback>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     </Modal>
   );
 };
 
 const styles = StyleSheet.create({
-  closeX: {
-    position: 'absolute',
-    left: 10,
-    top: 10,
-    padding: 10,
-  },
-  gameType: {
-    height: 100,
-    width: 100,
-    margin: 6,
-  },
   centeredView: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // semi-transparent background
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent background
   },
   modalView: {
-    width: '80%',
-    backgroundColor: 'white',
+    overflow: "hidden",
+    width: 300,
+    padding: 10,
+    backgroundColor: "white",
     borderRadius: 20,
-    padding: 20,
-    alignItems: 'center',
-    shadowColor: '#000',
+    alignItems: "center",
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -62,22 +79,35 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
+
   gridContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    gap: 10, // Adjust this based on your needs
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    marginBottom: 20,
   },
-  modalTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 15,
+  gameType: {
+    height: 100,
+    width: 100,
+    margin: 10,
+    borderRadius: 10, // Adds rounded edges for consistency
   },
   modalButton: {
-    backgroundColor: 'brown',
-    padding: 12,
-    margin: 12,
-    textAlign: 'center',
+    backgroundColor: "brown",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 50,
+    borderColor: "black",
+    borderWidth: 2,
+    borderBottomWidth: 5,
+  },
+  buttonText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "white",
+    textShadowColor: "black",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
 });
 
