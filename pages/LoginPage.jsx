@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Image, ImageBackground, Dimensions, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import * as Font from 'expo-font';
-import FormComponent from '../component/FormComponent';
+import FormComponent from '../components/FormComponent';
 import { useNavigation } from '@react-navigation/native';
 
 const { width, height } = Dimensions.get('window');

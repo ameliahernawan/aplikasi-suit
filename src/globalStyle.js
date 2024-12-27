@@ -7,7 +7,7 @@ export const COLORS = {
 };
 
 export const TEXT = StyleSheet.create({
-  tittle: {
+  title: {
     fontSize: 40,
     textAlign: 'center',
     fontFamily: 'Bangers',

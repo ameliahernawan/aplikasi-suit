@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import HandChoices from '../component/HandChoice';
-import SelectedChoice from '../component/SelectedChoice';
-import ResultModal from '../component/ResultModal';
-import { View, Text, StyleSheet, ImageBackground, Image, Button, TouchableOpacity } from 'react-native';
+import HandChoices from '../components/HandChoice';
+import SelectedChoice from '../components/SelectedChoice';
+import ResultModal from '../components/ResultModal';
+import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity } from 'react-native';
 import { useRoute } from '@react-navigation/native';
-import Scoreboard from '../component/Scoreboard';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Scoreboard from '../components/Scoreboard';
 import { useNavigation } from '@react-navigation/native';
-import HomePage from '../pages/HomePage';
 import * as Font from 'expo-font';
 
-const GamePlay = () => {  
+const GaemplayPage = () => {  
   const [fontLoaded, setFontLoaded] = useState(false);
   const [gameState, setGameState] = useState({
     player1Choice: null,
@@ -227,11 +225,7 @@ const styles = StyleSheet.create({
   },
   imageBackground: {
     flex: 1,
-    // width: '100%',
-    // height: '100%',
-    // justifyContent: 'center',
-    // alignItems: 'center',
   },
 });
 
-export default GamePlay;
+export default GameplayPage;

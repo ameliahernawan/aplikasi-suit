@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, SafeAreaView, Image, Modal, ScrollView, Dimensions, TouchableWithoutFeedback, Keyboard, Alert, ImageBackground } from 'react-native';
 //import { Checkbox } from "react-native-paper";
 import { useNavigation } from '@react-navigation/native';
-import FormComponent from '../component/FormComponent';
+import FormComponent from '../components/FormComponent';
 const { width, height } = Dimensions.get('window');
 //import { register } from "../API/restApi";
 

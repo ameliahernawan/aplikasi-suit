@@ -1,18 +1,14 @@
-import React, { useState } from 'react';
-import { Modal, StyleSheet, Text, View, Image, ImageBackground, TouchableOpacity } from 'react-native';
-import AvatarModal from './AvatarModal';
+import React from 'react';
+import { Modal, StyleSheet, Text, View, ImageBackground, TouchableOpacity } from 'react-native';
 import { BUTTONS, TEXT } from '../src/globalStyle';
-import Settingstitle from '../assets/Setting.png'; // Ensure this is the correct path to your image file
 
 const SettingModal = ({ visible, onClose }) => {
-  const [avatarModalVisible, setAvatarModalVisible] = useState(false);
-
   return (
     <Modal visible={visible} onRequestClose={onClose} transparent={true} animationType="none">
       <View style={styles.centeredView}>
         <ImageBackground source={require('../assets/Background main page.png')} resizeMode="cover" style={styles.modalView}>
           <View style={{}}>
-            <Text style={TEXT.tittle}>Settings</Text>
+            <Text style={TEXT.title}>Settings</Text>
             <View style={{ paddingBottom: 20, gap: 10 }}>
               <TouchableOpacity style={BUTTONS.primary}>
                 <Text style={styles.menuText}>TUTORIAL</Text>
