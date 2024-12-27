@@ -1,5 +1,4 @@
-import { Modal, SafeAreaView, StyleSheet, Text, View, Image, ImageBackground, TouchableOpacity, Box, ScrollView } from 'react-native';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import { Modal, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
 const AvatarModal = ({ visible, onClose }) => {
   return (

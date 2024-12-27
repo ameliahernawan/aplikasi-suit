@@ -8,7 +8,7 @@ import Scoreboard from '../components/Scoreboard';
 import { useNavigation } from '@react-navigation/native';
 import * as Font from 'expo-font';
 
-const GaemplayPage = () => {  
+const GameplayPage = () => {  
   const [fontLoaded, setFontLoaded] = useState(false);
   const [gameState, setGameState] = useState({
     player1Choice: null,
@@ -132,9 +132,7 @@ const GaemplayPage = () => {
         updatedStats.player2.ties += 1;
       }
 
-      // if (updatedStats.currentStreak > updatedStats.bestStreak) {
-      //   updatedStats.bestStreak = updatedStats.currentStreak;
-      // }
+
 
       return updatedStats;
     });
@@ -158,8 +156,7 @@ const GaemplayPage = () => {
 
     <View style={[styles.container]}>
       <Scoreboard stats={stats}/>
-      {/* Judul mode game */}
-      {/* <Text style={styles.modeText}>Mode: {mode === 'PVP' ? 'Player vs Player' : 'Player vs Computer'}</Text> */}
+
 
       {/* Indikasi giliran permainan */}
       {!gameState.roundComplete && <Text style={styles.turnText}>Giliran: {gameState.player1Choice ? (mode === 'PVP' ? 'Player 2' : 'Komputer') : 'Player 1'}</Text>}
