@@ -23,8 +23,6 @@ export default function HomePage() {
     getUserData();
   }, []);
 
-  
-
   const handleNavigation = async (mode) => {
     setIsLoading(true);
     const loggedInUserId = userData?._id;
