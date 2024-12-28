@@ -1,7 +1,7 @@
 import React from 'react';
-import { Button, View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
-const HandChoices = ({ onSelect, disabled }) => {
+const HandChoices = ({ handlePlayerPick }) => {
   const choices = [
     { key: 'rock', source: require('../assets/Comp_Batu.png') },
     { key: 'paper', source: require('../assets/Comp_Kertas.png') },
@@ -11,7 +11,7 @@ const HandChoices = ({ onSelect, disabled }) => {
     <>
       <View style={styles.choicesContainer}>
         {choices.map((choice) => (
-          <TouchableOpacity key={choice.key} onPress={() => onSelect(choice.key)} disabled={false}>
+          <TouchableOpacity key={choice.key} onPress={() => handlePlayerPick(choice.key)} disabled={false}>
             <Image source={choice.source} style={styles.compChoice} />
           </TouchableOpacity>
         ))}

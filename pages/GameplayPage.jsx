@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import HandChoices from "../components/HandChoice";
 import {
   StyleSheet,
@@ -7,10 +7,10 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useRoute } from "@react-navigation/native";
-import Scoreboard from "../components/Scoreboard";
 import { useNavigation } from "@react-navigation/native";
 import Versus from "../components/Gameplay/Versus";
 import Turn from "../components/Gameplay/Turn";
+import WinnerCountdownPage from "./WinnerCountdownPage";
 
 const back = require("../assets/Back Button.png");
 
@@ -18,13 +18,33 @@ const GameplayPage = () => {
   const navigation = useNavigation();
 
   const route = useRoute();
-  const { mode } = route.params;
+  const { mode, userData } = route.params;
 
   const handleBackButtonPress = () => {
     navigation.navigate("home"); // Navigate to HomePage
   };
   const [playerOneChoice, setPlayerOneChoice] = useState(null);
   const [playerTwoChoice, setPlayerTwoChoice] = useState(null);
+  const [playerOneTurn, setPlayerOneTurn] = useState(true);
+  const [loading, setLoading] = useState(false);
+  console.log(playerOneChoice);
+
+  const handlePlayerOnePick = (selectedMove) => {
+    setPlayerOneChoice(selectedMove);
+    setPlayerOneTurn(false);
+  };
+
+  const handlePlayerTwoPick = (selectedMove) => {
+    setLoading(true);
+    setTimeout(() => {
+      setPlayerTwoChoice(selectedMove);
+      setLoading(false);
+    }, 1000);
+  };
+
+  if(loading){
+    return <WinnerCountdownPage/>
+  }
 
   return (
     <ImageBackground
@@ -38,9 +58,22 @@ const GameplayPage = () => {
       >
         <Image source={back} style={styles.backButton} />
       </TouchableOpacity>
-      <Versus mode={mode}/>
-      <Turn />
-      <HandChoices />
+      <Versus
+        mode={mode}
+        userData={userData}
+        playerOneTurn={playerOneTurn}
+      />
+      {!playerOneChoice ? (
+        <>
+          <Turn username={userData?.username} />
+          <HandChoices handlePlayerPick={handlePlayerOnePick} />
+        </>
+      ) : (
+        <>
+          <Turn username={mode == "PVC" ? "Computer" : "Player 2"} />
+          <HandChoices handlePlayerPick={handlePlayerTwoPick} />
+        </>
+      )}
     </ImageBackground>
   );
 };

@@ -2,10 +2,10 @@ import { StyleSheet, Text, View } from "react-native";
 import { TEXT } from "../../src/globalStyle";
 import React from "react";
 
-const Turn = () => {
+const Turn = ({username}) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>PLAYER 1'S TURN</Text>
+      <Text style={styles.title}>{username}'S TURN</Text>
       <Text style={TEXT.title}>CHOOSE!</Text>
     </View>
   );

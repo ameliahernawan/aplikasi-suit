@@ -4,15 +4,15 @@ import { Avatars } from "../../utils/Avatar";
 import { getRandomNumber } from "../../utils/randomAvatar";
 import React from "react";
 
-const Versus = ({ mode }) => {
+const Versus = ({ mode, userData, playerOneTurn }) => {
   return mode == "PVC" ? (
     <View style={styles.container}>
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <View>
-          <Image source={Avatars[1]} style={styles.avatar} />
-          {/* <View style={styles.overlay} /> */}
+          <Image source={Avatars[userData.avatar_id]} style={styles.avatar} />
+          {!playerOneTurn && <View style={styles.overlay} />}
         </View>
-        <Text style={styles.playerText}>Player 1</Text>
+        <Text style={styles.playerText}>{userData.username}</Text>
       </View>
       <Text
         style={[
@@ -23,16 +23,22 @@ const Versus = ({ mode }) => {
         VS
       </Text>
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Image source={Avatars[5]} style={styles.avatar} />
+        <View>
+          <Image source={Avatars[5]} style={styles.avatar} />
+          {playerOneTurn && <View style={styles.overlay} />}
+        </View>
         <Text style={styles.playerText}>Computer</Text>
       </View>
     </View>
   ) : (
     <View style={styles.container}>
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Image source={Avatars[1]} style={styles.avatar} />
+        <View>
+          {!playerOneTurn && <View style={styles.overlay} />}
+          <Image source={Avatars[userData.avatar_id]} style={styles.avatar} />
+        </View>
 
-        <Text style={styles.playerText}>Player 1</Text>
+        <Text style={styles.playerText}>{userData.username}</Text>
       </View>
       <Text
         style={[
@@ -43,7 +49,10 @@ const Versus = ({ mode }) => {
         VS
       </Text>
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Image source={Avatars[getRandomNumber()]} style={styles.avatar} />
+        <View>
+          {playerOneTurn && <View style={styles.overlay} />}
+          <Image source={Avatars[getRandomNumber()]} style={styles.avatar} />
+        </View>
         <Text style={styles.playerText}>Player 2</Text>
       </View>
     </View>

@@ -27,8 +27,10 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (token) => {
     const fetchedData = await fetchUser(token);
-    setUser({ token, userData: fetchedData.user });
+    setUser({ token });
     setIsLogin(true);
+    console.log(fetchedData.user);
+    await AsyncStorage.setItem("userData", JSON.stringify(fetchedData.user));
     await AsyncStorage.setItem("userToken", token);
   };
 
