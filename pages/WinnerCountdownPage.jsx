@@ -3,11 +3,12 @@ import { ImageBackground, View,StyleSheet, Text } from 'react-native';
 import { TEXT } from '../src/globalStyle';
 
 
-export default function WinnerCountdownPage() {
+export default function WinnerCountdownPage({countdown}) {
   return (
     <View style={styles.container}>
       <ImageBackground source={require('../assets/background_image.png')} resizeMode="cover" style={styles.imageBackground}>
         <Text style={TEXT.title}>THE WINNER IS...</Text>
+        <Text style={TEXT.title}>{countdown}</Text>
       </ImageBackground>
     </View>
   );

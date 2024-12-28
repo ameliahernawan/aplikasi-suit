@@ -4,7 +4,7 @@ import { Avatars } from "../../utils/Avatar";
 import { getRandomNumber } from "../../utils/randomAvatar";
 import React from "react";
 
-const Versus = ({ mode, userData, playerOneTurn }) => {
+const Versus = ({ mode, userData, playerOneTurn, avatarPlayer2 }) => {
 
   const randomNumber = getRandomNumber()
   return mode == "PVC" ? (
@@ -53,7 +53,7 @@ const Versus = ({ mode, userData, playerOneTurn }) => {
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <View>
           {playerOneTurn && <View style={styles.overlay} />}
-          <Image source={Avatars[randomNumber]} style={styles.avatar} />
+          <Image source={Avatars[avatarPlayer2]} style={styles.avatar} />
         </View>
         <Text style={styles.playerText}>Player 2</Text>
       </View>

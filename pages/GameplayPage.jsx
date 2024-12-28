@@ -19,6 +19,7 @@ import { BUTTONS } from "../src/globalStyle";
 import WinnerResult from "../components/Gameplay/WinnerResult";
 import { updateUserWinstreak } from "../api/restApi";
 import Winstreak from "../components/Gameplay/Winstreak";
+import { getRandomNumber } from "../utils/randomAvatar";
 
 const back = require("../assets/Back Button.png");
 
@@ -38,6 +39,8 @@ const GameplayPage = () => {
   const [highlightedChoice, setHighlightedChoice] = useState(null);
   const [winStreak, setWinStreak] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [avatarPlayer2, setAvatarPlayer2] = useState(getRandomNumber())
+  const [countdown, setCountdown] = useState(3);
   const choices = [
     { key: "rock", source: require("../assets/Comp_Batu.png") },
     { key: "paper", source: require("../assets/Comp_Kertas.png") },
@@ -62,13 +65,26 @@ const GameplayPage = () => {
   const handlePlayerTwoPick = async (selectedMove) => {
     setLoading(true);
     setPlayerOneTurn(true);
+    setCountdown(3); // Initialize countdown at 3 seconds
+
+ 
+    let countdownInterval = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev < 1) {
+          clearInterval(countdownInterval); 
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  
     try {
       setPlayerTwoChoice(selectedMove);
       const response =
         mode === "PVC"
           ? await playRound(match_id, playerOneChoice, selectedMove)
           : await playRoundPVP(match_id, playerOneChoice, selectedMove);
-
+      
       setTimeout(() => {
         setWinner(response.winner);
 
@@ -99,7 +115,7 @@ const GameplayPage = () => {
           choices[Math.floor(Math.random() * choices.length)].key;
         setHighlightedChoice(randomChoice);
       }, 200);
-
+      
       const timeout = setTimeout(() => {
         clearInterval(interval);
         setHighlightedChoice(null);
@@ -116,7 +132,7 @@ const GameplayPage = () => {
   }, [playerOneTurn]);
 
   if (loading) {
-    return <WinnerCountdownPage />;
+    return <WinnerCountdownPage countdown={countdown}/>;
   }
 
   return (
@@ -162,6 +178,7 @@ const GameplayPage = () => {
             mode={mode}
             userData={userData}
             playerOneTurn={playerOneTurn}
+            avatarPlayer2={avatarPlayer2}
           />
           {mode == "PVC" && (
             <Winstreak userData={userData} winStreak={winStreak} />
