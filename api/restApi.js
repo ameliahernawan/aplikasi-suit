@@ -5,7 +5,8 @@ const api = axios.create({
   baseURL: "http://13.55.211.40:3000",
 });
 
-export const fetchUser = async (token) => {
+export const fetchUser = async () => {
+  const token = await AsyncStorage.getItem("userToken");
   try {
     const response = await api.get("/auth/current-user", {
       headers: {
@@ -49,6 +50,26 @@ export const createMatch = async (player_one_id, player_two_id) => {
     return response.data;
   } catch (error) {
     throw new Error(error.response?.data?.error || "Create match failed");
+  }
+};
+
+export const playRound = async (match_id, player_one_move, player_two_move) => {
+  const token = await AsyncStorage.getItem("userToken");
+  try {
+    const body = {
+      match_id,
+      player_one_move,
+      player_two_move,
+    };
+
+    const response = await api.post("/gameplay/play-round", body, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.error || "Play Round failed");
   }
 };
 
