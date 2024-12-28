@@ -32,7 +32,6 @@ export default function HomePage() {
         "676d2589c069bd9cbb4ebebc"
       );
       const match_id = response.match._id;
-      console.log(match_id);
       setTimeout(() => {
         setIsLoading(false);
         navigation.navigate("gameplay", {

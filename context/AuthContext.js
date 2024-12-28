@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
           setIsLogin(false);
         }
       } catch (error) {
-        console.log("failed");
+        throw error
       }
     };
     checkLoginStatus();

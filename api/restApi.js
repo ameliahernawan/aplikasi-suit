@@ -15,7 +15,6 @@ export const fetchUser = async () => {
     });
     return response.data;
   } catch (error) {
-    console.error('Error fetching user: ', error);
     throw new Error('Failed to fetch user data');
   }
 };
@@ -30,7 +29,6 @@ export const login = async (email, password) => {
     const response = await api.post('/auth/login', body);
     return response.data;
   } catch (error) {
-    console.log('Login Error Response:', error.response?.data);
     throw error;
   }
 };
@@ -142,7 +140,6 @@ export const register = async (userName, email, password, avatarID = '1') => {
   
     return response.data;
   } catch (error) {
-    console.log('Register Error Response:', error.response?.data);
     throw error;
   }
 };

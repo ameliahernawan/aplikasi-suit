@@ -8,7 +8,6 @@ const Turn = ({ username, mode }) => {
       {mode != "PVC" && (
         <Text style={[TEXT.title, { marginTop: 40 }]}>{username}'S TURN</Text>
       )}
-
       <Text style={styles.title}>CHOOSE!</Text>
     </View>
   );
