@@ -64,8 +64,9 @@ export default Versus;
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    width: 400,
-    gap: 20,
+    width: '100%',
+    gap: 15,
+
   },
   avatar: {
     width: 130,

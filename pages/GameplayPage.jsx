@@ -17,6 +17,8 @@ import { fetchUser, playRound } from "../api/restApi";
 import VersusPlayerMove from "../components/Gameplay/VersusPlayerMove";
 import { BUTTONS } from "../src/globalStyle";
 import WinnerResult from "../components/Gameplay/WinnerResult";
+import { updateUserWinstreak } from "../api/restApi";
+import Winstreak from "../components/Gameplay/Winstreak";
 
 const back = require("../assets/Back Button.png");
 
@@ -34,6 +36,7 @@ const GameplayPage = () => {
   const [winner, setWinner] = useState(null);
   const [playerOneTurn, setPlayerOneTurn] = useState(true);
   const [highlightedChoice, setHighlightedChoice] = useState(null);
+  const [winStreak, setWinStreak] = useState(0);
   const [loading, setLoading] = useState(false);
   const choices = [
     { key: "rock", source: require("../assets/Comp_Batu.png") },
@@ -59,13 +62,22 @@ const GameplayPage = () => {
   const handlePlayerTwoPick = async (selectedMove) => {
     setLoading(true);
     setPlayerOneTurn(true);
-    console.log(playerOneChoice, selectedMove);
     try {
       const response = await playRound(match_id, playerOneChoice, selectedMove);
 
       setTimeout(() => {
         setWinner(response.winner);
         setPlayerTwoChoice(selectedMove);
+
+        if (response.winner._id === userData._id) {
+          setWinStreak((prev) => prev + 1);
+        } else {
+          const updateWinstreak = async (winStreak) => {
+            await updateUserWinstreak(winStreak);
+          };
+          updateWinstreak(winStreak);
+          setWinStreak(0);
+        }
         setLoading(false);
       }, 1500);
     } catch (err) {
@@ -148,9 +160,13 @@ const GameplayPage = () => {
             userData={userData}
             playerOneTurn={playerOneTurn}
           />
+          {mode == "PVC" && (
+            <Winstreak userData={userData} winStreak={winStreak} />
+          )}
+
           {!playerOneChoice ? (
             <>
-              <Turn username={userData?.username} />
+              <Turn username={userData?.username} mode={mode} />
               <HandChoices
                 handlePlayerPick={handlePlayerOnePick}
                 highlightedChoice={highlightedChoice}
@@ -159,7 +175,10 @@ const GameplayPage = () => {
             </>
           ) : (
             <>
-              <Turn username={mode == "PVC" ? "Computer" : "Player 2"} />
+              <Turn
+                username={mode == "PVC" ? "Computer" : "Player 2"}
+                mode={mode}
+              />
               <HandChoices
                 handlePlayerPick={handlePlayerTwoPick}
                 highlightedChoice={highlightedChoice}

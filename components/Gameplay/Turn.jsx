@@ -2,11 +2,14 @@ import { StyleSheet, Text, View } from "react-native";
 import { TEXT } from "../../src/globalStyle";
 import React from "react";
 
-const Turn = ({username}) => {
+const Turn = ({username, mode}) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{username}'S TURN</Text>
-      <Text style={TEXT.title}>CHOOSE!</Text>
+      {
+        mode == !'PVC' && <Text style={styles.title}>{username}'S TURN</Text>
+      }
+      
+      <Text style={styles.title}>CHOOSE!</Text>
     </View>
   );
 };
@@ -17,8 +20,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     width: "100%",
-
-    paddingTop:50
+    paddingTop:10
   },
   title: {
     fontSize: 40,
