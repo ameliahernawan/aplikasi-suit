@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   imageBackground: {
     flex: 1,
   },
-  container: {},
+
   text: {
     alignItems: 'center',
   },

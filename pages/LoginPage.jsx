@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Image, ImageBackground, Dimensions, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { StyleSheet, View, ImageBackground, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import * as Font from 'expo-font';
 import FormComponent from '../components/FormComponent';
 

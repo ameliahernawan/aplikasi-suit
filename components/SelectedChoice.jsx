@@ -1,23 +1,24 @@
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image } from "react-native";
 
-const SelectedChoice = ({ player, choice, image }) => {
-  return <View style={styles.choiceDisplay}>{image && <Image source={image} style={styles.choiceImage} />}</View>;
+const SelectedChoice = ({ image }) => {
+  return (
+    <View style={styles.choiceDisplay}>
+      {image && <Image source={image} style={styles.choiceImage} />}
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
   choiceDisplay: {
-    width: '%',
+    width: "%",
     padding: 1,
-    flexDirection: '',
-
-    marginBottom: 1, 
-    // justifyContent: 'center', 
-    
+    flexDirection: "",
+    marginBottom: 1,
   },
   choiceImage: {
     height: 100,
     width: 100,
-    resizeMode: 'contain',
+    resizeMode: "contain",
   },
 });
 

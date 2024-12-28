@@ -66,8 +66,6 @@ const GameplayPage = () => {
     setLoading(true);
     setPlayerOneTurn(true);
     setCountdown(3); 
-
- 
     let countdownInterval = setInterval(() => {
       setCountdown((prev) => {
         if (prev < 1) {
@@ -76,7 +74,7 @@ const GameplayPage = () => {
         }
         return prev - 1;
       });
-    }, 1000);
+    }, 500);
   
     try {
       setPlayerTwoChoice(selectedMove);
@@ -87,7 +85,6 @@ const GameplayPage = () => {
       
       setTimeout(() => {
         setWinner(response.winner);
-
         if (response.winner._id === userData._id && mode == "PVC") {
           setWinStreak((prev) => prev + 1);
         } else {
@@ -98,7 +95,7 @@ const GameplayPage = () => {
           setWinStreak(0);
         }
         setLoading(false);
-      }, 1500);
+      }, 3000);
     } catch (err) {
       console.log(err.message);
       setPlayerOneChoice(null);
@@ -163,12 +160,6 @@ const GameplayPage = () => {
               onPress={handlePlayAgain}
             >
               <Text style={styles.menuText}>Play Again</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[BUTTONS.danger, { width: 300 }]}
-              onPress={handleBackButtonPress}
-            >
-              <Text style={styles.menuText}>Home</Text>
             </TouchableOpacity>
           </View>
         </>
