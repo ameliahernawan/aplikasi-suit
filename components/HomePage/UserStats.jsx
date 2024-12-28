@@ -6,7 +6,7 @@ const splash = require("../../assets/UserStats/splash.png");
 const exclamation = require("../../assets/UserStats/exclamation.png");
 const statsContainer = require("../../assets/UserStats/stats-container.png");
 
-const UserStats = () => {
+const UserStats = ({stats}) => {
   return (
     <ImageBackground source={backgroundImage} style={{ height: 300 }}>
       <View style={{ flexDirection: "row", justifyContent: "center" }}>
@@ -21,7 +21,7 @@ const UserStats = () => {
               <Text
                 style={[styles.text, { fontSize: 75, textAlign: "center" }]}
               >
-                100
+                {stats?.winstreak}
               </Text>
             </View>
           </ImageBackground>
@@ -43,7 +43,7 @@ const UserStats = () => {
             style={styles.statsContainer}
           >
             <View style={styles.textContainerStats}>
-              <Text style={styles.textStats}>100</Text>
+              <Text style={styles.textStats}>{stats?.stats?.wins}</Text>
             </View>
           </ImageBackground>
         </View>
@@ -54,7 +54,7 @@ const UserStats = () => {
             style={styles.statsContainer}
           >
             <View style={styles.textContainerStats}>
-              <Text style={styles.textStats}>100</Text>
+              <Text style={styles.textStats}>{stats?.stats?.ties}</Text>
             </View>
           </ImageBackground>
         </View>
@@ -67,7 +67,7 @@ const UserStats = () => {
             style={styles.statsContainer}
           >
             <View style={styles.textContainerStats}>
-              <Text style={styles.textStats}>100</Text>
+              <Text style={styles.textStats}>{stats?.stats?.losses}</Text>
             </View>
           </ImageBackground>
         </View>
@@ -111,10 +111,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     padding: 1,
-    marginLeft: 12,
+   
     marginBottom: 10,
   },
   textStats: {
+    textAlign:'center',
     fontFamily: "Bangers",
     color: "#FFB202",
     textShadowColor: "black",

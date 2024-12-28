@@ -14,7 +14,7 @@ import { Avatars } from "../utils/Avatar";
 
 const bg = require("../assets/Background main page.png");
 
-const AvatarModal = ({ visible, onClose }) => {
+const AvatarModal = ({ visible, onClose, handleUpdateAvatar }) => {
   return (
     <Modal
       visible={visible}
@@ -32,16 +32,16 @@ const AvatarModal = ({ visible, onClose }) => {
             >
               <Text style={TEXT.title}>Choose your avatar</Text>
               <View style={styles.gridContainer}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => handleUpdateAvatar(1)}>
                   <Image source={Avatars[1]} style={styles.gameType} />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => handleUpdateAvatar(2)}>
                   <Image source={Avatars[2]} style={styles.gameType} />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => handleUpdateAvatar(3)}>
                   <Image source={Avatars[3]} style={styles.gameType} />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => handleUpdateAvatar(4)}>
                   <Image source={Avatars[4]} style={styles.gameType} />
                 </TouchableOpacity>
               </View>

@@ -1,4 +1,4 @@
-import { View, StyleSheet, ImageBackground } from "react-native";
+import { View, StyleSheet, ImageBackground, Alert } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import UserStats from "../components/HomePage/UserStats";
@@ -6,7 +6,9 @@ import Header from "../components/HomePage/Header";
 import GameModeOptions from "../components/HomePage/GameModeOptions";
 import SplashScreen from "./SplashScreen";
 import { createMatch } from "../api/restApi";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { updateUserAvatar } from "../api/restApi";
+import { fetchUser } from "../api/restApi";
+
 
 const bg = require("../assets/Background main page.png");
 
@@ -14,18 +16,18 @@ export default function HomePage() {
   const [isLoading, setIsLoading] = useState(false);
   const [userData, setUserData] = useState(null);
   const navigation = useNavigation();
-
+  console.log(userData)
   useEffect(() => {
     const getUserData = async () => {
-      const fetchedUserData = await AsyncStorage.getItem("userData");
-      setUserData(JSON.parse(fetchedUserData));
+      const userData = await fetchUser();
+      setUserData(userData);
     };
     getUserData();
-  }, []);
+  }, [isLoading]);
 
   const handleNavigation = async (mode) => {
     setIsLoading(true);
-    const loggedInUserId = userData?._id;
+    const loggedInUserId = userData?.user?._id;
     if (mode == "PVC") {
       const response = await createMatch(
         loggedInUserId,
@@ -38,7 +40,7 @@ export default function HomePage() {
         navigation.navigate("gameplay", {
           mode: mode,
           match_id: match_id,
-          userData: userData,
+          userData: userData.user,
         });
       }, 1000);
     } else {
@@ -52,9 +54,20 @@ export default function HomePage() {
         navigation.navigate("gameplay", {
           mode: mode,
           match_id: match_id,
-          userData: userData,
+          userData: userData.user,
         });
       }, 1000);
+    }
+  };
+
+  const handleUpdateAvatar = async (avatar_id) => {
+    try {
+      setIsLoading(true);
+      const response = await updateUserAvatar(avatar_id);
+      setIsLoading(false);
+    } catch (error) {
+      Alert.alert(`${error}`);
+      setIsLoading(false);
     }
   };
 
@@ -69,8 +82,16 @@ export default function HomePage() {
       style={styles.imageBackground}
     >
       <View style={styles.container}>
-        <Header />
-        <UserStats />
+        <Header
+          userData={userData?.user}
+          handleUpdateAvatar={handleUpdateAvatar}
+        />
+        <UserStats
+          stats={{
+            stats: userData?.stats,
+            winstreak: userData?.user?.winstreak,
+          }}
+        />
         <GameModeOptions handleNavigation={handleNavigation} />
       </View>
     </ImageBackground>

@@ -1,26 +1,29 @@
-import { StyleSheet, View, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, View, TouchableOpacity, Image, Alert } from "react-native";
 import React from "react";
 import AvatarModal from "../AvatarModal";
 import SettingModal from "../SettingModal";
 import { useState } from "react";
 import { Avatars } from "../../utils/Avatar";
-
+import { updateUserAvatar } from "../../api/restApi";
 const logo = require("../../assets/Logo.png");
 const settingsIcon = require("../../assets/Icon/Settings.png");
 import { useAuth } from "../../context/AuthContext";
 
-const Header = () => {
+
+const Header = ({handleUpdateAvatar, userData }) => {
   const [settingModalVisible, setSettingModalVisible] = useState(false);
   const [avatarModalVisible, setAvatarModalVisible] = useState(false);
+
   const { logout } = useAuth();
 
   return (
     <View style={styles.headerContainer}>
       <TouchableOpacity onPress={() => setAvatarModalVisible(true)}>
-        <Image source={Avatars[4]} style={styles.Icon} />
+        <Image source={Avatars[userData?.avatar_id]} style={styles.Icon} />
       </TouchableOpacity>
       <AvatarModal
         visible={avatarModalVisible}
+        handleUpdateAvatar={handleUpdateAvatar}
         onClose={() => setAvatarModalVisible(false)}
       />
       <Image source={logo} style={styles.logoImage} />

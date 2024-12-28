@@ -34,6 +34,42 @@ export const login = async (email, password) => {
   }
 };
 
+export const updateUserAvatar = async (avatar_id) => {
+  const token = await AsyncStorage.getItem("userToken");
+  try {
+    const body = {
+      avatar_id: avatar_id,
+    };
+
+    const response = await api.post("/auth/update-user", body, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.error || "Login failed");
+  }
+};
+
+export const updateUserWinstreak = async (winstreak) => {
+  const token = await AsyncStorage.getItem("userToken");
+  try {
+    const body = {
+      winstreak: winstreak,
+    };
+
+    const response = await api.post("/auth/update-user", body, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.error || "Login failed");
+  }
+};
+
 export const createMatch = async (player_one_id, player_two_id) => {
   const token = await AsyncStorage.getItem("userToken");
   try {
