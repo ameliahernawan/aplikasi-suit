@@ -13,7 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 import Versus from "../components/Gameplay/Versus";
 import Turn from "../components/Gameplay/Turn";
 import WinnerCountdownPage from "./WinnerCountdownPage";
-import { fetchUser, playRound } from "../api/restApi";
+import { playRound, playRoundPVP } from "../api/restApi";
 import VersusPlayerMove from "../components/Gameplay/VersusPlayerMove";
 import { BUTTONS } from "../src/globalStyle";
 import WinnerResult from "../components/Gameplay/WinnerResult";
@@ -63,13 +63,16 @@ const GameplayPage = () => {
     setLoading(true);
     setPlayerOneTurn(true);
     try {
-      const response = await playRound(match_id, playerOneChoice, selectedMove);
+      setPlayerTwoChoice(selectedMove);
+      const response =
+        mode === "PVC"
+          ? await playRound(match_id, playerOneChoice, selectedMove)
+          : await playRoundPVP(match_id, playerOneChoice, selectedMove);
 
       setTimeout(() => {
         setWinner(response.winner);
-        setPlayerTwoChoice(selectedMove);
 
-        if (response.winner._id === userData._id) {
+        if (response.winner._id === userData._id && mode == "PVC") {
           setWinStreak((prev) => prev + 1);
         } else {
           const updateWinstreak = async (winStreak) => {

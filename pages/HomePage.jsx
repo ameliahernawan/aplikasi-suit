@@ -16,7 +16,7 @@ export default function HomePage() {
   const [isLoading, setIsLoading] = useState(false);
   const [userData, setUserData] = useState(null);
   const navigation = useNavigation();
-  console.log(userData)
+
   useEffect(() => {
     const getUserData = async () => {
       const userData = await fetchUser();

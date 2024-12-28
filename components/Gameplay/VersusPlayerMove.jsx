@@ -4,7 +4,7 @@ import { PlayerMove } from "../../utils/PlayerMove";
 import React from "react";
 
 const VersusPlayerMove = ({ mode, winner, userData, playerOneChoice, playerTwoChoice }) => {
-  console.log(playerOneChoice, playerTwoChoice)
+
   return mode == "PVC" ? (
     <View style={styles.container}>
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>

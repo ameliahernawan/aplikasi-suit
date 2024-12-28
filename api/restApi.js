@@ -110,6 +110,26 @@ export const playRound = async (match_id, player_one_move, player_two_move) => {
   }
 };
 
+export const playRoundPVP = async (match_id, player_one_move, player_two_move) => {
+  const token = await AsyncStorage.getItem('userToken');
+  try {
+    const body = {
+      match_id,
+      player_one_move,
+      player_two_move,
+    };
+
+    const response = await api.post('/gameplay/play-round-pvp', body, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.error || 'Play Round failed');
+  }
+};
+
 export const register = async (userName, email, password, avatarID = '1') => {
   try {
     const body = {
@@ -119,7 +139,7 @@ export const register = async (userName, email, password, avatarID = '1') => {
       avatar_id: avatarID,
     };
     const response = await api.post('/auth/register', body);
-    console.log(response);
+  
     return response.data;
   } catch (error) {
     console.log('Register Error Response:', error.response?.data);
