@@ -1,14 +1,15 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { useEffect, useState } from "react";
-import SplashScreen from "./pages/SplashScreen";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import OnboardingPage from "./pages/OnboardingPage";
-import HomePage from "./pages/HomePage";
-import GameplayPage from "./pages/GameplayPage";
-import { AuthProvider, useAuth } from "./context/AuthContext";
-import { loadFonts } from "./src/fonts";
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { useEffect, useState } from 'react';
+import SplashScreen from './pages/SplashScreen';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import SettingModal from './components/SettingModal';
+import HomePage from './pages/HomePage';
+import GameplayPage from './pages/GameplayPage';
+import { AuthProvider, useAuth } from './context/AuthContext';
+import { loadFonts } from './src/fonts';
+import TutorialPage from './pages/TutorialPage';
 
 const Stack = createStackNavigator();
 
@@ -29,7 +30,7 @@ const AppNavigator = () => {
 
         return () => clearTimeout(timer);
       } catch (e) {
-        console.error("Error loading fonts:", e);
+        console.error('Error loading fonts:', e);
       }
     }
     prepare();
@@ -42,41 +43,17 @@ const AppNavigator = () => {
   return (
     <Stack.Navigator initialRouteName="splash">
       {isLoading ? (
-        <Stack.Screen
-          name="splash"
-          component={SplashScreen}
-          options={{ headerShown: false }}
-        />
+        <Stack.Screen name="splash" component={SplashScreen} options={{ headerShown: false }} />
       ) : isLogin ? ( // Check if the user is logged in
         <>
-          <Stack.Screen
-            name="home"
-            component={HomePage}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="gameplay"
-            component={GameplayPage}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="onboarding"
-            component={OnboardingPage}
-            options={{ headerShown: false }}
-          />
+          <Stack.Screen name="home" component={HomePage} options={{ headerShown: false }} />
+          <Stack.Screen name="gameplay" component={GameplayPage} options={{ headerShown: false }} />
+          <Stack.Screen name="tutorial" component={TutorialPage} options={{ headerShown: false }} />
         </>
       ) : (
         <>
-          <Stack.Screen
-            name="login"
-            component={LoginPage}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="register"
-            component={RegisterPage}
-            options={{ headerShown: false }}
-          />
+          <Stack.Screen name="login" component={LoginPage} options={{ headerShown: false }} />
+          <Stack.Screen name="register" component={RegisterPage} options={{ headerShown: false }} />
         </>
       )}
     </Stack.Navigator>
