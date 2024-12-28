@@ -8,8 +8,6 @@ import SplashScreen from "./SplashScreen";
 import { createMatch } from "../api/restApi";
 import { updateUserAvatar } from "../api/restApi";
 import { fetchUser } from "../api/restApi";
-
-
 const bg = require("../assets/Background main page.png");
 
 export default function HomePage() {
