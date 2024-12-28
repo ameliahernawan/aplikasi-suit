@@ -1,27 +1,86 @@
-import { TouchableOpacity, View, Text, Image, StyleSheet, ImageBackground } from 'react-native';
-import React, { useState } from 'react';
-import SettingModal from '../component/SettingModal';
-import GamePlay from './GamePlay';
-import { useNavigation } from '@react-navigation/native';
+import { View, StyleSheet, ImageBackground, Alert } from "react-native";
+import React, { useEffect, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import UserStats from "../components/HomePage/UserStats";
+import Header from "../components/HomePage/Header";
+import GameModeOptions from "../components/HomePage/GameModeOptions";
+import SplashScreen from "./SplashScreen";
+import { createMatch } from "../api/restApi";
+import { updateUserAvatar } from "../api/restApi";
+import { fetchUser } from "../api/restApi";
+const bg = require("../assets/Background main page.png");
 
 export default function HomePage() {
-  const [settingModalVisible, setSettingModalVisible] = useState(false);
-  const [showGame, setShowGame] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [userData, setUserData] = useState(null);
   const navigation = useNavigation();
 
-  const handleQuitGame = () => {
-    setShowGame(false);
-    setPlayer2('');
-    setSelectedAvatar(null);
+  useEffect(() => {
+    const getUserData = async () => {
+      const userData = await fetchUser();
+      setUserData(userData);
+    };
+    getUserData();
+  }, [isLoading]);
+
+  const handleNavigation = async (mode) => {
+    setIsLoading(true);
+    const loggedInUserId = userData?.user?._id;
+    if (mode == "PVC") {
+      const response = await createMatch(
+        loggedInUserId,
+        "676d2589c069bd9cbb4ebebc"
+      );
+      const match_id = response.match._id;
+      console.log(match_id);
+      setTimeout(() => {
+        setIsLoading(false);
+        navigation.navigate("gameplay", {
+          mode: mode,
+          match_id: match_id,
+          userData: userData.user,
+        });
+      }, 1000);
+    } else {
+      const response = await createMatch(
+        loggedInUserId,
+        "676f38426b87afaf132b368d"
+      );
+      const match_id = response.match._id;
+      setTimeout(() => {
+        setIsLoading(false);
+        navigation.navigate("gameplay", {
+          mode: mode,
+          match_id: match_id,
+          userData: userData.user,
+        });
+      }, 1000);
+    }
   };
 
-  if (showGame) {
-    return <GamePlay onQuit={handleQuitGame} />;
+  const handleUpdateAvatar = async (avatar_id) => {
+    try {
+      setIsLoading(true);
+      const response = await updateUserAvatar(avatar_id);
+      setIsLoading(false);
+    } catch (error) {
+      Alert.alert(`${error}`);
+      setIsLoading(false);
+    }
+  };
+
+  if (isLoading) {
+    return <SplashScreen />;
   }
 
   return (
-    <ImageBackground source={require('../assets/Background main page.png')} resizeMode="cover" style={styles.imageBackground}>
+    <ImageBackground
+      source={bg}
+      resizeMode="cover"
+      style={styles.imageBackground}
+    >
       <View style={styles.container}>
+<<<<<<< HEAD
         <View style={styles.headerContainer}>
           <TouchableOpacity onPress={() => setSettingModalVisible(true)}>
             <Image source={require('../assets/Avatar F1.png')} style={styles.avatar} />
@@ -52,6 +111,19 @@ export default function HomePage() {
             {/* <RoomModal visible={roomModalVisible} onClose={() => setRoomModalVisible(false)} /> */}
           </View>
         </View>
+=======
+        <Header
+          userData={userData?.user}
+          handleUpdateAvatar={handleUpdateAvatar}
+        />
+        <UserStats
+          stats={{
+            stats: userData?.stats,
+            winstreak: userData?.user?.winstreak,
+          }}
+        />
+        <GameModeOptions handleNavigation={handleNavigation} />
+>>>>>>> 2477631b379d7146a6ca162d902445662ffa5965
       </View>
     </ImageBackground>
   );
@@ -63,21 +135,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    gap: 50,
-  },
-  headerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 35,
-  },
-  avatar: {
-    height: 48,
-    width: 48,
-  },
-  logoImage: {
-    alignSelf: 'center',
-    height: 100,
-    width: 140,
+    gap: 15,
   },
 });
