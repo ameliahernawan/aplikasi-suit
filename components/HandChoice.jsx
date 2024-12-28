@@ -27,10 +27,10 @@ const styles = StyleSheet.create({
     height: 100,
     width: 100,
     resizeMode: "contain",
-    opacity: 1, // Default opacity
+    opacity: 1,
   },
   highlightedChoice: {
-    opacity: 0.5, // Dim non-highlighted choices
+    opacity: 0.5, 
   },
   choicesContainer: {
     flexDirection: "row",

@@ -2,11 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Image, ImageBackground, Dimensions, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import * as Font from 'expo-font';
 import FormComponent from '../components/FormComponent';
-import { useNavigation } from '@react-navigation/native';
 
 export default function LoginPage() {
   const [fontLoaded, setFontLoaded] = useState(false);
-  const navigation = useNavigation();
 
   useEffect(() => {
     async function loadFont() {

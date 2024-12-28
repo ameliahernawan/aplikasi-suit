@@ -65,7 +65,7 @@ const GameplayPage = () => {
   const handlePlayerTwoPick = async (selectedMove) => {
     setLoading(true);
     setPlayerOneTurn(true);
-    setCountdown(3); // Initialize countdown at 3 seconds
+    setCountdown(3); 
 
  
     let countdownInterval = setInterval(() => {
