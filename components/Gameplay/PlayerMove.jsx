@@ -8,10 +8,8 @@ const PlayerMove = ({ mode, gameState, stats, choiceImages, handlePlayer1Choice,
    
       {!gameState.roundComplete && <Text style={styles.turnText}>Turn: {gameState.player1Choice ? (mode === 'PVP' ? 'Player 2' : 'Computer') : 'Player 1'}</Text>}
 
-      {/* Player choices */}
       {!gameState.roundComplete && <HandChoices onSelect={handlePlayer1Choice} disabled={!!gameState.player1Choice} />}
       {gameState.player1Choice && mode === 'PVP' && <HandChoices onSelect={handlePlayer2Choice} disabled={false} />}
-
       
       <View style={styles.choiceContainer}>
         {gameState.player1Choice && gameState.player2Choice && (
@@ -22,8 +20,6 @@ const PlayerMove = ({ mode, gameState, stats, choiceImages, handlePlayer1Choice,
           </>
         )}
       </View>
-
-   
     </View>
   );
 };

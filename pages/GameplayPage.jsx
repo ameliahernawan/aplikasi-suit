@@ -97,7 +97,6 @@ const GameplayPage = () => {
         setLoading(false);
       }, 3000);
     } catch (err) {
-      console.log(err.message);
       setPlayerOneChoice(null);
       setPlayerTwoChoice(null);
       setLoading(false);

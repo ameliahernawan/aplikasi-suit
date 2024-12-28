@@ -70,24 +70,7 @@ const styles = StyleSheet.create({
     height: 100,
     width: 100,
     margin: 20,
-    borderRadius: 10, // Adds rounded edges for consistency
-  },
-  modalButton: {
-    backgroundColor: 'brown',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 50,
-    borderColor: 'black',
-    borderWidth: 2,
-    borderBottomWidth: 5,
-  },
-  buttonText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: 'white',
-    textShadowColor: 'black',
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 2,
+    borderRadius: 10,
   },
 });
 

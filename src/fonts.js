@@ -9,7 +9,7 @@ export const loadFonts = async () => {
     });
     return true;
   } catch (error) {
-    console.error('Error loading font:', error);
+    throw error
     return false;
   }
 };

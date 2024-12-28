@@ -68,7 +68,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: '100%',
     gap: 15,
-
   },
   avatar: {
     width: 130,
@@ -76,9 +75,9 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
   overlay: {
-    ...StyleSheet.absoluteFillObject, // Covers the entire image
-    backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent black
-    borderRadius: 100, // Match the image's border radius
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    borderRadius: 100,
   },
   playerText: {
     fontFamily: "Bangers",
@@ -86,7 +85,6 @@ const styles = StyleSheet.create({
     textShadowColor: "black",
     textShadowOffset: { width: 2, height: 2 },
     textShadowRadius: 0.1,
-
     fontSize: 20,
   },
 });

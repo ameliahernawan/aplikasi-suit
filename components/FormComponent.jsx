@@ -56,8 +56,6 @@ export default function FormComponent({ state }) {
         errorResponse?.error || "An error occurred, try again later";
     }
 
-    console.log("API error:", errorResponse);
-
     if (setLoginError) {
       setLoginError(errorMessage);
     } else if (setRegisterError) {
@@ -239,12 +237,11 @@ export default function FormComponent({ state }) {
                       styles.text,
                       {
                         color: "gold",
-                        fontWeight: "bold",
+
                         fontFamily: "Handy",
                       },
                     ]}
                   >
-                    {" "}
                     Login
                   </Text>
                 </TouchableOpacity>
@@ -264,11 +261,9 @@ export default function FormComponent({ state }) {
                 </Text>
                 <TouchableOpacity
                   onPress={() => navigation.replace("register")}
+                  style={{ fontFamily: "Handy" }}
                 >
-                  <Text
-                    style={[styles.text, { color: "gold", fontWeight: "bold" }]}
-                  >
-                    {" "}
+                  <Text style={[styles.text, { color: "gold" }]}>
                     Register now
                   </Text>
                 </TouchableOpacity>
@@ -336,7 +331,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "black",
-    fontWeight: "bold",
+
     fontSize: 26,
     fontFamily: "Handy",
     textShadowColor: "white",
@@ -362,7 +357,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    fontWeight: 500,
     fontFamily: "Handy",
     textShadowColor: "black",
     textShadowOffset: { width: 1, height: 0.5 },

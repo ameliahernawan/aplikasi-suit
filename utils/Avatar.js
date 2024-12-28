@@ -4,7 +4,6 @@ const avatar3 = require('../assets/Avatar/Avatar3.png')
 const avatar4 = require('../assets/Avatar/Avatar4.png')
 const avatarRobot = require('../assets/Avatar/AvatarRobot.png')
 
-
 export const Avatars = {
     1 : avatar1,
     2 : avatar2,
