@@ -80,38 +80,6 @@ export default function HomePage() {
       style={styles.imageBackground}
     >
       <View style={styles.container}>
-<<<<<<< HEAD
-        <View style={styles.headerContainer}>
-          <TouchableOpacity onPress={() => setSettingModalVisible(true)}>
-            <Image source={require('../assets/Avatar F1.png')} style={styles.avatar} />
-          </TouchableOpacity>
-          <Image source={require('../assets/Logo.png')} style={styles.logoImage} />
-          <TouchableOpacity onPress={() => setSettingModalVisible(true)}>
-            <Image source={require('../assets/Setting Icon.png')} style={styles.avatar} />
-          </TouchableOpacity>
-          <SettingModal visible={settingModalVisible} onClose={() => setSettingModalVisible(false)} />
-        </View>
-
-        <ImageBackground source={require('../assets/Group 9.png')} style={{ height: 300 }}></ImageBackground>
-
-        <View style={{ alignItems: 'center', gap: 12 }}>
-          <Text style={{ fontSize: 20, textAlign: 'center' }}>CHOOSE GAME MODE</Text>
-
-          <View style={{ flexDirection: 'row', gap: 12 }}>
-            <TouchableOpacity style={{ alignItems: 'center' }} onPress={() => navigation.navigate('gameplay', { mode: 'PVC' })}>
-              <Image source={require('../assets/PVC.png')} style={{}} />
-              <Text>Player vs Computer</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={{ alignItems: 'center' }} onPress={() => navigation.navigate('gameplay', { mode: 'PVP' })}>
-              <Image source={require('../assets/PVP.png')} style={{}} />
-              <Text style={{ fontFamily: 'Handy' }}>Player vs Player</Text>
-            </TouchableOpacity>
-
-            {/* <RoomModal visible={roomModalVisible} onClose={() => setRoomModalVisible(false)} /> */}
-          </View>
-        </View>
-=======
         <Header
           userData={userData?.user}
           handleUpdateAvatar={handleUpdateAvatar}
@@ -123,7 +91,6 @@ export default function HomePage() {
           }}
         />
         <GameModeOptions handleNavigation={handleNavigation} />
->>>>>>> 2477631b379d7146a6ca162d902445662ffa5965
       </View>
     </ImageBackground>
   );

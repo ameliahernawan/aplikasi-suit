@@ -16,7 +16,7 @@ const Stack = createStackNavigator();
 const AppNavigator = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [fontsLoaded, setFontsLoaded] = useState(false);
-  const { isLogin } = useAuth(); // Access isLogin from AuthContext
+  const { isLogin } = useAuth();
 
   useEffect(() => {
     async function prepare() {
@@ -25,7 +25,7 @@ const AppNavigator = () => {
         setFontsLoaded(true);
 
         const timer = setTimeout(() => {
-          setIsLoading(false); // Finish loading splash screen
+          setIsLoading(false); 
         }, 1000);
 
         return () => clearTimeout(timer);
@@ -44,7 +44,7 @@ const AppNavigator = () => {
     <Stack.Navigator initialRouteName="splash">
       {isLoading ? (
         <Stack.Screen name="splash" component={SplashScreen} options={{ headerShown: false }} />
-      ) : isLogin ? ( // Check if the user is logged in
+      ) : isLogin ? ( 
         <>
           <Stack.Screen name="home" component={HomePage} options={{ headerShown: false }} />
           <Stack.Screen name="gameplay" component={GameplayPage} options={{ headerShown: false }} />

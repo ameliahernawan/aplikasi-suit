@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
     width: '%',
     padding: 1,
     flexDirection: '',
-
     marginBottom: 1, 
     // justifyContent: 'center', 
     

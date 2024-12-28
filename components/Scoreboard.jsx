@@ -23,27 +23,27 @@ const Scoreboard = ({ stats }) => {
 
 const styles = StyleSheet.create({
   scoreContainer: {
-    backgroundColor: '#f5f5f5', // Latar belakang abu-abu muda
+    backgroundColor: '#f5f5f5',
     padding: 20,
-    borderRadius: 10, // Sudut membulat agar tampak lebih modern
-    marginBottom: 20, // Jarak antara scoreboard dan elemen lainnya
-    shadowColor: '#000', // Bayangan untuk efek depth
+    borderRadius: 10,
+    marginBottom: 20,
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1, // Transparansi bayangan
+    shadowOpacity: 0.1,
     shadowRadius: 4,
-    elevation: 3, // Efek bayangan di Android
+    elevation: 3,
   },
   scoreText: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#333', // Warna teks gelap agar mudah dibaca
-    marginBottom: 8, // Jarak antar baris teks
+    color: '#333',
+    marginBottom: 8,
   },
   streakText: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#4CAF50', // Warna hijau untuk "Best Streak"
-    marginTop: 12, // Jarak sedikit lebih besar untuk pemisah
+    color: '#4CAF50',
+    marginTop: 12,
   },
 });
 

@@ -55,32 +55,11 @@ export default function FormComponent({ state }) {
     setRegisterError('');
     const { usernameErrorMessage, emailErrorMessage, passwordErrorMessage, isValid } = validateForm(username, email, password);
 
-<<<<<<< HEAD:component/FormComponent.jsx
-    setErrorMessage('');
-
-    if (username.length <= 3) {
-      setErrorMessage('Username must be more than 3 characters.');
-      valid = false;
-    }
-
-    if (!email.includes('@')) {
-      setErrorMessage('Email must contain "@" symbol.');
-      valid = false;
-    }
-
-    if (password.length < 7) {
-      setErrorMessage('Password must be at least 7 characters long.');
-      valid = false;
-    }
-
-    if (valid) {
-=======
     setUsernameErrorMessage(usernameErrorMessage);
     setEmailErrorMessage(emailErrorMessage);
     setPasswordErrorMessage(passwordErrorMessage);
 
     if (isValid) {
->>>>>>> 2477631b379d7146a6ca162d902445662ffa5965:components/FormComponent.jsx
       handleRegister(username, email, password);
     }
   };
