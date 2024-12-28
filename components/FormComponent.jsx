@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
-import { KeyboardAvoidingView, StyleSheet, SafeAreaView, TextInput, View, Text, Image, Dimensions, TouchableOpacity, ScrollView, Platform } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, SafeAreaView, TextInput, View, Text, Image, Dimensions, TouchableOpacity, ScrollView, Platform, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../context/AuthContext';
 import { login, register } from '../api/restApi';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import * as Font from 'expo-font';
 import { validateForm } from '../src/formValidation';
 
 const { width, height } = Dimensions.get('window');
@@ -13,12 +12,12 @@ export default function FormComponent({ state }) {
   const [username, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
 
   const [secureTextEntry, setSecureTextEntry] = useState(true);
 
-  const [usernameError, setUsernameError] = useState('');
-  const [emailError, setEmailError] = useState('');
+  const [registerError, setRegisterError] = useState('');
+  const [loginError, setLoginError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const [usernameErrorMessage, setUsernameErrorMessage] = useState('');
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
@@ -31,13 +30,31 @@ export default function FormComponent({ state }) {
     setSecureTextEntry(!secureTextEntry);
   };
 
-  const handleSubmitRegister = () => {
-    setUsernameError('');
-    setEmailError('');
+  const handleApiError = (error, setLoginError, setRegisterError) => {
+    const errorResponse = error.response?.data;
+    let errorMessage;
 
+    if (errorResponse?.message === 'User not found') {
+      errorMessage = 'User not found';
+    } else if (errorResponse?.error === 'Username or email already exists.') {
+      errorMessage = 'Username or email already exists.';
+    } else {
+      errorMessage = errorResponse?.error || 'An error occurred, try again later';
+    }
+
+    console.log('API error:', errorResponse);
+
+    if (setLoginError) {
+      setLoginError(errorMessage);
+    } else if (setRegisterError) {
+      setRegisterError(errorMessage);
+    }
+  };
+
+  const handleSubmitRegister = () => {
+    setRegisterError('');
     const { usernameErrorMessage, emailErrorMessage, passwordErrorMessage, isValid } = validateForm(username, email, password);
 
-    // Set error messages
     setUsernameErrorMessage(usernameErrorMessage);
     setEmailErrorMessage(emailErrorMessage);
     setPasswordErrorMessage(passwordErrorMessage);
@@ -48,36 +65,36 @@ export default function FormComponent({ state }) {
   };
 
   const handleRegister = async (username, email, password) => {
+    setIsLoading(true);
     try {
       const response = await register(username, email, password, '1');
       navigation.navigate('login');
     } catch (error) {
-      console.log(error);
-      if (error.message.includes('Email already in use')) {
-        setEmailError('Email already in use');
-      } else if (error.message.includes('Username already in use')) {
-        setUsernameError('Username already in use');
-      }
-      console.error(error);
+      handleApiError(error, null, setRegisterError);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleSubmitLogin = () => {
+    setLoginError('');
     if (!email || !password) {
-      setErrorMessage('Email and password are required.');
+      setLoginError('Email and password are required.');
       return;
     }
     handleLogin(email, password);
   };
 
   const handleLogin = async (email, password) => {
+    setIsLoading(true);
     try {
       const response = await login(email, password);
       await auth.login(response.token);
       navigation.navigate('home');
     } catch (error) {
-      setErrorMessage('Email or password is incorrect.');
-      console.error(error);
+      handleApiError(error, setLoginError, null);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -101,6 +118,10 @@ export default function FormComponent({ state }) {
             </View>
           )}
 
+          {loginError && <Text style={styles.errorText}>{loginError}</Text>}
+          {registerError && <Text style={styles.errorText}>{registerError}</Text>}
+          {isLoading && <ActivityIndicator size="large" color="#0000ff" />}
+
           {/* Username Text Input */}
           {state === 'register' && (
             <TextInput
@@ -109,14 +130,13 @@ export default function FormComponent({ state }) {
               value={username}
               onChangeText={(value) => {
                 setUserName(value);
-                if (usernameError) setUsernameError('');
                 if (usernameErrorMessage) setUsernameErrorMessage('');
               }}
               autoCorrect={false}
             />
           )}
           {/* Error Message */}
-          {(usernameError || usernameErrorMessage) && <Text style={styles.errorText}>{usernameError || usernameErrorMessage}</Text>}
+          {usernameErrorMessage && <Text style={styles.errorText}>{usernameErrorMessage}</Text>}
 
           {/* Email Text Input */}
           <TextInput
@@ -125,14 +145,13 @@ export default function FormComponent({ state }) {
             value={email}
             onChangeText={(value) => {
               setEmail(value);
-              if (emailError) setEmailError('');
               if (emailErrorMessage) setEmailErrorMessage('');
             }}
             autoCorrect={false}
             autoCapitalize="none"
           />
           {/* Error Message */}
-          {(emailError || emailErrorMessage) && <Text style={styles.errorText}>{emailError || emailErrorMessage}</Text>}
+          {emailErrorMessage && <Text style={styles.errorText}>{emailErrorMessage}</Text>}
 
           {/* Password Text Input */}
           <View style={styles.passwordContainer}>
@@ -164,7 +183,7 @@ export default function FormComponent({ state }) {
               <View style={styles.groupText1}>
                 <Text style={[styles.text, { color: 'white' }]}>Already have an account?</Text>
                 <TouchableOpacity onPress={() => navigation.navigate('login')}>
-                  <Text style={[styles.text, { color: 'gold', fontWeight: 'bold' }]}> Login</Text>
+                  <Text style={[styles.text, { color: 'gold', fontWeight: 'bold', fontFamily: 'Handy' }]}> Login</Text>
                 </TouchableOpacity>
               </View>
             </SafeAreaView>
