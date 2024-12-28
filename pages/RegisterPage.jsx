@@ -7,60 +7,60 @@ const { width, height } = Dimensions.get('window');
 //import { register } from "../API/restApi";
 
 export default function RegisterPage() {
-  const [fullname, setFullname] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [avatarUrl, setAvatarUrl] = useState('');
-  const [isChecked, setIsChecked] = useState(false);
+  // const [fullname, setFullname] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
+  // const [avatarUrl, setAvatarUrl] = useState('');
+  // const [isChecked, setIsChecked] = useState(false);
 
-  const [fullnameError, setFullnameError] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [isCheckedError, setIsCheckedError] = useState('');
+  // const [fullnameError, setFullnameError] = useState('');
+  // const [emailError, setEmailError] = useState('');
+  // const [passwordError, setPasswordError] = useState('');
+  // const [isCheckedError, setIsCheckedError] = useState('');
 
-  const [modalVisible, setModalVisible] = useState(false);
+  // const [modalVisible, setModalVisible] = useState(false);
 
   const navigation = useNavigation();
 
-  const handleRegister = async () => {
-    let valid = true;
+  // const handleRegister = async () => {
+  //   let valid = true;
 
-    setFullnameError('');
-    setEmailError('');
-    setPasswordError('');
-    setIsCheckedError('');
+  //   setFullnameError('');
+  //   setEmailError('');
+  //   setPasswordError('');
+  //   setIsCheckedError('');
 
-    // Validation checks
-    if (fullname.length <= 3) {
-      setFullnameError('Fullname must be more than 3 characters.');
-      valid = false;
-    }
+  //   // Validation checks
+  //   if (fullname.length <= 3) {
+  //     setFullnameError('Fullname must be more than 3 characters.');
+  //     valid = false;
+  //   }
 
-    if (!email.includes('@')) {
-      setEmailError("Email must contain '@'.");
-      valid = false;
-    }
+  //   if (!email.includes('@')) {
+  //     setEmailError("Email must contain '@'.");
+  //     valid = false;
+  //   }
 
-    if (password.length < 8) {
-      setPasswordError('Password must be at least 8 characters.');
-      valid = false;
-    }
+  //   if (password.length < 8) {
+  //     setPasswordError('Password must be at least 8 characters.');
+  //     valid = false;
+  //   }
 
-    if (!isChecked) {
-      setIsCheckedError('You must agree to the Terms and Conditions.');
-      valid = false;
-    }
+  //   if (!isChecked) {
+  //     setIsCheckedError('You must agree to the Terms and Conditions.');
+  //     valid = false;
+  //   }
 
-    if (valid) {
-      try {
-        const response = await register(fullname, email, password, avatarUrl);
+  //   if (valid) {
+  //     try {
+  //       const response = await register(fullname, email, password, avatarUrl);
 
-        Alert.alert('Success', 'Registration successful!', [{ text: 'OK', onPress: () => navigation.navigate('Login') }]);
-      } catch (error) {
-        Alert.alert('Error', error.response.data.message);
-      }
-    }
-  };
+  //       Alert.alert('Success', 'Registration successful!', [{ text: 'OK', onPress: () => navigation.navigate('Login') }]);
+  //     } catch (error) {
+  //       Alert.alert('Error', error.response.data.message);
+  //     }
+  //   }
+  // };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
