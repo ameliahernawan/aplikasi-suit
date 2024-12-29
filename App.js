@@ -10,6 +10,9 @@ import GameplayPage from './pages/GameplayPage';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { loadFonts } from './src/fonts';
 import TutorialPage from './pages/TutorialPage';
+import { enableScreens } from 'react-native-screens';
+
+enableScreens()
 
 const Stack = createStackNavigator();
 
